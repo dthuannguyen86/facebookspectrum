@@ -276,6 +276,7 @@
 		}
 		
 		var displayAlbumInfo = function() {
+			$('#friendsalbumselect').change(getAlbumsForDropdown);
 			var htmlContent = 'Album and Photo information of all your '+countItems(friends)+' friends on Facebook'+'<br>';
 			htmlContent += '<table class="orange"><thead><tr><th>ID</th><th>Name</th><th>Albums</th><th>Photos</th></tr></thead>'
 			var cls = 'odd';
@@ -692,6 +693,7 @@
 		}
 		
 		function displayTimeline(user) {
+			$('#friendselect').change(reloadTimeline);
 			if(FeedInfo) {
 				FeedInfo = false;
 				clearTimeline();
@@ -819,12 +821,12 @@
 
 			var friendsDropdown = document.createElement('select');
 			friendsDropdown.setAttribute('id', 'friendselect');	
-			friendsDropdown.setAttribute('onChange', 'reloadTimeline();');
+			//friendsDropdown.setAttribute('onChange', 'reloadTimeline();');
 			friendsDropdown.options[friendsDropdown.options.length] = new Option('You', 'me', true, true);
 			
 			var friendsDropdown2 = document.createElement('select');
 			friendsDropdown2.setAttribute('id', 'friendsalbumselect');	
-			friendsDropdown2.setAttribute('onChange', 'getAlbumsForDropdown();');
+			//friendsDropdown2.setAttribute('onChange', 'getAlbumsForDropdown();');
 			friendsDropdown2.options[friendsDropdown2.options.length] = new Option('You', 'me', true, true);
 
 			for(var i=0;i<tempArr.length;i++) {
@@ -832,7 +834,7 @@
 				friendsDropdown2.options[friendsDropdown2.length] = new Option(tempArr[i][1], tempArr[i][0], false, false);
 			}	
 			document.getElementById('friendsList').appendChild(friendsDropdown);
-			document.getElementById('friendsAlbumList').appendChild(friendsDropdown2);
+			document.getElementById('friendsAlbumList').appendChild(friendsDropdown2);			
 		}
 		
 		String.prototype.getDateFromfacebookFormat = function() {
