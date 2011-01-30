@@ -863,3 +863,14 @@
 				seconds = "0"+seconds;
 			return this.getDate()+' '+MONTHS[this.getMonth()]+' '+this.getFullYear()+' '+hours+':'+minutes+':'+seconds+' '+ap;
 		}
+
+		if(!Array.indexOf){
+		  Array.prototype.indexOf = function(obj){
+				  for(var i=0; i<this.length; i++){
+					  if(this[i]==obj){
+						  return i;
+					  }
+				  }
+			  return -1;
+		  }
+		}		
