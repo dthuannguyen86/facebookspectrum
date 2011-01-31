@@ -56,7 +56,7 @@
 				displayLocationInfo();
 			} else if(tab=='albums') {
 				displayAlbumInfo();
-			} else if(tab=='more') {
+			} else if(tab=='other') {
 				drawGenderChart();
 				drawEducationChart();
 			} else {
@@ -159,6 +159,7 @@
 				<li class="tab" onclick="switchTab('birthday');">Birthday</li>
 				<li class="tab" onclick="switchTab('location');">Location</li>
 				<li class="tab" onclick="switchTab('albums');">Albums</li>
+				<li class="tab" onclick="switchTab('other');">Other</li>
 				<li class="tab" onclick="switchTab('more');">More</li>
 				<li class="tab" onclick="switchTab('faq');">FAQ</li>
 			</ul>
@@ -178,10 +179,16 @@
 				<p>Here is a list of all your friends in the order they created their accounts on Facebook. Ever wondered who jumped in on the Facebook wagon first? Here is your answer.. </p><br>
 				<!--friendsBlock-->
 			</div>
-			<div class="block hide" id="moreBlock">
-				<!--moreBlock-->
+			<div class="block hide" id="otherBlock">
+				<!--otherBlock-->
 				<div style="float:left;display:" id='gender_chart_div'></div>
 				<div style="float:left;display:" id='education_chart_div'></div>
+			</div>
+			<div class="block hide" id="moreBlock">
+				<!--moreBlock-->
+				<div style="margin:20px">
+					<p>More features will be added here later.. Stay tuned..</p>
+				</div>
 			</div>
 			<div class="block hide" id="timelineBlock">
 				<!--timelineBlock-->
