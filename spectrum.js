@@ -778,7 +778,7 @@
 								if(data[p].likes || data[p].comments)
 									message += ']';
 								*/
-								tempobjarr.push({'postid':postid, 'friendid':friendid, 'title':title, 'message':message, 'createdtime':createdtime});
+								tempobjarr.push({'postid':postid, 'user': user, 'friendid':friendid, 'title':title, 'message':message, 'createdtime':createdtime});
 							}
 							objs = objs.concat(tempobjarr);
 						}
