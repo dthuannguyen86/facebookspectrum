@@ -50,7 +50,7 @@
 			if(tab=='home') {
 
 			} else if(tab=='friends') {
-				//Need to display all friends
+				displayFriendSphere();
 			} else if(tab=='timeline') {
 				displayTimeline();
 			} else if(tab=='birthday') {
@@ -60,7 +60,7 @@
 			} else if(tab=='albums') {
 				displayAlbumInfo();
 			} else if(tab=='more') {
-				displayFriendSphere();
+
 			} else if(tab=='other') {
 				drawGenderChart();
 				drawEducationChart();
@@ -181,6 +181,9 @@
 				</div>
 			</div>
 			<div class="block hide" id="friendsBlock">
+				<div style="width:600px;text-align:center" align="center">A 3-D view of all your friends</div>
+				<div id="friendsSphere"></div>
+				<div style="clear:both"></div>
 				<p>Here is a list of all your friends in the order they created their accounts on Facebook. Ever wondered who jumped in on the Facebook wagon first? Here is your answer.. </p><br>
 				<!--friendsBlock-->
 			</div>
@@ -192,8 +195,7 @@
 			<div class="block hide" id="moreBlock">
 				<!--moreBlock-->
 				<div style="margin:20px">
-					<p>A 3-D view of all your friends</p>
-					<div id="friendsSphere"></div>
+					More features will be added later..
 				</div>
 			</div>
 			<div class="block hide" id="timelineBlock">
@@ -285,7 +287,7 @@
 					This application talks to facebook to get the required information to display the webpage. Facebook does not make any of your information available to the application without you granting the permission.
 
 				<div class="faq">Is my information secure?</div>
-					Yes. Your information is very much secure. All your Facebook content that you see on this application is downloaded on demand once you grant required permissions. also available on facebook.com In other words, You will not see any content that you are not authorized to see.
+					Yes. Your information is very much secure. All your Facebook content that you see on this application is downloaded on demand once you grant required permissions. You will not see any content that you are not authorized to see.
 
 				<div class="faq">Do you store the information that I see on this website?</div>
 					Absolutely not. None of the information you see on this website is stored anywhere. Once you are done with the webpage, you can click logout to disconnect from Facebook. The application can no longer access any information thereafter. <br><br>
