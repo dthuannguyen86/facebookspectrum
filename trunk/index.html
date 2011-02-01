@@ -56,6 +56,8 @@
 				displayLocationInfo();
 			} else if(tab=='albums') {
 				displayAlbumInfo();
+			} else if(tab=='more') {
+				displayFriendSphere();
 			} else if(tab=='other') {
 				drawGenderChart();
 				drawEducationChart();
@@ -187,7 +189,8 @@
 			<div class="block hide" id="moreBlock">
 				<!--moreBlock-->
 				<div style="margin:20px">
-					<p>More features will be added here later.. Stay tuned..</p>
+					<p>A 3-D view of all your friends</p>
+					<div id="friendsSphere"></div>
 				</div>
 			</div>
 			<div class="block hide" id="timelineBlock">

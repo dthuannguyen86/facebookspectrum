@@ -837,6 +837,27 @@
 			document.getElementById('friendsAlbumList').appendChild(friendsDropdown2);			
 		}
 		
+
+		function displayFriendSphere() {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Name');
+			data.addColumn('string', 'ID');
+			data.addRows(countItems(friends));
+
+			var p=0;
+			for(var k in friends) {
+				if(!friends.hasOwnProperty(k))
+					continue;
+				var name = friends[k];
+				var id = k;
+				data.setCell(p, 0, name);
+				data.setCell(p, 1, id);
+				p++;
+			}
+			var vis = new gviz_word_cumulus.WordCumulus(document.getElementById('friendsSphere'));
+			vis.draw(data, {text_color: '#663300', hover_text_color: '#000066', speed: 1, width:900, height:600});			
+		}
+		
 		String.prototype.getDateFromfacebookFormat = function() {
 			var d    = this.split(/[-:T+]/); d[1] -= 1; d.pop();
 			var date = new Date(Date.UTC.apply(Date, d));		
