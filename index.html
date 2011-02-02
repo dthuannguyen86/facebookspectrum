@@ -59,8 +59,8 @@
 				displayLocationInfo();
 			} else if(tab=='albums') {
 				displayAlbumInfo();
-			} else if(tab=='more') {
-
+			} else if(tab=='mutuals') {
+				displayMutualFriendInfo();
 			} else if(tab=='other') {
 				drawGenderChart();
 				drawEducationChart();
@@ -165,6 +165,7 @@
 				<li class="tab" onclick="switchTab('location');">Location</li>
 				<li class="tab" onclick="switchTab('albums');">Albums</li>
 				<li class="tab" onclick="switchTab('other');">Other</li>
+				<li class="tab" onclick="switchTab('mutuals');">Mutuals</li>
 				<li class="tab" onclick="switchTab('more');">More</li>
 				<li class="tab" onclick="switchTab('faq');">FAQ</li>
 			</ul>
@@ -198,6 +199,11 @@
 					More features will be added later..
 				</div>
 			</div>
+			<div class="block hide" id="mutualsBlock">
+				<!--moreBlock-->
+				<div id="mutualFriends"></div>
+			</div>
+
 			<div class="block hide" id="timelineBlock">
 				<!--timelineBlock-->
 				<div style="position:relative">

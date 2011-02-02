@@ -1,7 +1,7 @@
     	var DEBUG = false;
 
 		var userLoggedIn = false;
-
+		var userAccessToken;
     	var friends = {};
 		var albumInfo = {};
 		var photosInfo = {};
@@ -10,6 +10,7 @@
 		var birthdayInfo = {};
 		var pictureInfo = {};
 		var genderInfo = {};
+		var mutualFriends = {};
 		var educationInfo = {};
 		var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		var map;
@@ -59,6 +60,13 @@
 					}
 					albumInfo[k] = (albumInfo[k]?parseInt(albumInfo[k]):0)+numAlbums;
 					photosInfo[k] = (photosInfo[k]?parseInt(photosInfo[k]):0)+numPictures;
+
+					if(!userAccessToken) {
+						var accessToken = nextUrl;
+						accessToken = accessToken.substring(accessToken.indexOf('access_token')+13);
+						accessToken = accessToken.substring(0, (accessToken.indexOf('&')==-1)?accessToken.length:accessToken.indexOf('&'));
+						userAccessToken = accessToken;
+					}
 
 					if(nextUrl!='') {
 						//nextUrl = unescape(nextUrl);
@@ -857,6 +865,49 @@
 			var vis = new gviz_word_cumulus.WordCumulus(document.getElementById('friendsSphere'));
 			vis.draw(data, {text_color: '#663300', hover_text_color: '#000066', speed: 1, width:900, height:600});			
 		}
+		
+		function displayMutualFriendInfo() {
+			var e = document.createElement('script');
+			e.type = 'text/javascript';
+			e.src = "https://api.facebook.com/method/fql.multiquery?queries=%7B'query1'%3A'SELECT%20uid2%20FROM%20friend%20WHERE%20uid1%20%3D%20654837842'%2C'query2'%3A'SELECT%20uid1%2C%20uid2%20FROM%20friend%20WHERE%20uid1%20IN%20(SELECT%20uid2%20FROM%20%23query1)%20AND%20uid2%20IN%20(SELECT%20uid2%20FROM%20%23query1)'%7D&access_token="+userAccessToken+"&format=json&callback=foundMutualFriends";
+			e.async = true;
+			document.getElementById('mutuals').appendChild(e);
+		}
+		
+		function foundMutualFriends(resp) {
+			var arrObjs = resp[1]['fql_result_set'];
+			for(var m=0;m<arrObjs.length;m++) {
+				var curMapping = arrObjs[m];
+				var curUser = curMapping['uid1'];
+				if(mutualFriends[curUser]) {
+				} else {
+					mutualFriends[curUser] = [];
+				}
+				mutualFriends[curUser][mutualFriends[curUser].length] = curMapping['uid2'];
+			}
+
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Friend');
+			data.addColumn('number', 'Mutual Friends');
+			data.addRows(countItems(mutualFriends));
+			var p=0;
+			for(var m in mutualFriends) {
+				var allFriends = mutualFriends[m];
+				data.setValue(p, 0, friends[m]);
+				data.setValue(p, 1, allFriends.length);
+				p++;
+			}
+			new google.visualization.ColumnChart(document.getElementById('mutualFriends')).
+				draw(data,
+				   {width:1500, height:900,
+					chartArea:{left:90},
+					legend: 'top',
+					hAxis: {textPosition:"none"},
+					vAxis: {title: "Number of mutual friends"}}
+			);
+
+		}
+
 		
 		String.prototype.getDateFromfacebookFormat = function() {
 			var d    = this.split(/[-:T+]/); d[1] -= 1; d.pop();
