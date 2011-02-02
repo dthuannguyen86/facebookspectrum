@@ -900,7 +900,7 @@
 			}
 			new google.visualization.ColumnChart(document.getElementById('mutualFriends')).
 				draw(data,
-				   {width:1500, height:900,
+				   {width:1200, height:900,
 					chartArea:{left:90},
 					legend: 'top',
 					hAxis: {textPosition:"none"},
