@@ -1,6 +1,7 @@
     	var DEBUG = false;
 
 		var userLoggedIn = false;
+		var loggedInUserId;
 		var userAccessToken;
     	var friends = {};
 		var albumInfo = {};
@@ -869,7 +870,7 @@
 		function displayMutualFriendInfo() {
 			var e = document.createElement('script');
 			e.type = 'text/javascript';
-			e.src = "https://api.facebook.com/method/fql.multiquery?queries=%7B'query1'%3A'SELECT%20uid2%20FROM%20friend%20WHERE%20uid1%20%3D%20654837842'%2C'query2'%3A'SELECT%20uid1%2C%20uid2%20FROM%20friend%20WHERE%20uid1%20IN%20(SELECT%20uid2%20FROM%20%23query1)%20AND%20uid2%20IN%20(SELECT%20uid2%20FROM%20%23query1)'%7D&access_token="+userAccessToken+"&format=json&callback=foundMutualFriends";
+			e.src = "https://api.facebook.com/method/fql.multiquery?queries=%7B'query1'%3A'SELECT%20uid2%20FROM%20friend%20WHERE%20uid1%20%3D%20"+loggedInUserId+"'%2C'query2'%3A'SELECT%20uid1%2C%20uid2%20FROM%20friend%20WHERE%20uid1%20IN%20(SELECT%20uid2%20FROM%20%23query1)%20AND%20uid2%20IN%20(SELECT%20uid2%20FROM%20%23query1)'%7D&access_token="+userAccessToken+"&format=json&callback=foundMutualFriends";
 			e.async = true;
 			document.getElementById('mutuals').appendChild(e);
 		}

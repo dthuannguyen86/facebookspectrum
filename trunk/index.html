@@ -387,6 +387,7 @@
 		function userGreeting() {
 			FB.api('/me', function(response) {
 				document.getElementById('welcomeMsg').innerHTML += '<br>Welcome <b>'+response.name+'</b>';
+				loggedInUserId = response.id;
 			});
 		}
 
