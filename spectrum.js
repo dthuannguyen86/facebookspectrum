@@ -901,7 +901,7 @@
 			new google.visualization.ColumnChart(document.getElementById('mutualFriends')).
 				draw(data,
 				   {width:1200, height:900,
-					chartArea:{left:90},
+					chartArea:{left:90, top:90},
 					legend: 'top',
 					hAxis: {textPosition:"none"},
 					vAxis: {title: "Number of mutual friends"}}
