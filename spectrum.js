@@ -875,6 +875,7 @@
 		}
 		
 		function foundMutualFriends(resp) {
+			mutualFriends = {};
 			var arrObjs = resp[1]['fql_result_set'];
 			for(var m=0;m<arrObjs.length;m++) {
 				var curMapping = arrObjs[m];
