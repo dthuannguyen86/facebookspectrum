@@ -3,7 +3,8 @@
 		var userLoggedIn = false;
 		var loggedInUserId;
 		var userAccessToken;
-    	var friends = {};
+	    	var friends = {};
+	    	var likes = {};
 		var albumInfo = {};
 		var photosInfo = {};
 		var locationInfo = {};
@@ -12,6 +13,7 @@
 		var pictureInfo = {};
 		var genderInfo = {};
 		var mutualFriends = {};
+		var mutualLikes = {};
 		var educationInfo = {};
 		var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		var map;
@@ -296,8 +298,7 @@
 				htmlContent += ('<tr class="'+cls+'"><td><img src="'+pictureInfo[key]+'"></td><td>'+friends[key]+'</td><td>'+albumInfo[key]+'</td><td>'+photosInfo[key]+'</td></tr>');
 			}
 			htmlContent += '</table>'
-			//document.getElementById('album_charts').innerHTML = '<div style="float:left" id="album_chart_div"></div>'+'<div style="float:left" id="photo_chart_div"></div><div style="clear:both"></div><br>'+htmlContent;
-			document.getElementById('album_charts').innerHTML = '<div id="album_chart_div"></div>'+'<div id="photo_chart_div"></div><div style="clear:both"></div><br>';
+			//document.getElementById('album_charts').innerHTML = '<div id="album_chart_div"></div>'+'<div id="photo_chart_div"></div><div style="clear:both"></div><br>';
 			drawAlbumChart();
 			drawPhotoChart();
 		}
@@ -317,55 +318,9 @@
 			
 			dropMarkers();
 			drawLocationTable();
-			/*
-			var htmlContent = 'Location information of all your '+countItems(friends)+' friends on Facebook'+'<br>';
-			htmlContent += '<table class="orange"><thead><tr><th>Location</th><th>Number of friends</th></tr></thead>'
-			var cls = 'odd';
-			for (var key in locationInfo) {
-				if(!locationInfo.hasOwnProperty(key))
-					continue;
-				cls = (cls=='odd')?'':'odd';
-				var info = locationInfo[key];
-				htmlContent += ('<tr class="'+cls+'"><td>'+key+'</td><td><b>'+info.length+'</b> - ');
-				for(var c=0;c<info.length;c++) {
-					htmlContent += (friends[info[c]]+', ');
-				}
-				htmlContent = htmlContent.substring(0,htmlContent.length-2);
-				htmlContent += ('</td></tr>');
-			}
-			htmlContent += '</table>'
-			document.getElementById('location_div').innerHTML = htmlContent;			
-			*/
 		}
 
-		var displayBirthdayInfo = function() {
-			/*
-				var htmlContent = 'Birthday information of all your '+countItems(friends)+' friends on Facebook'+'<br>';
-				htmlContent += '<table class="orange"><thead><tr><th>Month</th><th>Number of friends</th></tr></thead>'
-				var cls = 'odd';
-				for (var month in birthdayInfo) {
-					if(!birthdayInfo.hasOwnProperty(month))
-						continue;
-					cls = (cls=='odd')?'':'odd';
-					var monthObj = birthdayInfo[month];
-					if(month!='Unknown') {
-						month = MONTHS[month-1];
-					}
-					htmlContent += ('<tr class="'+cls+'"><td>'+month+'</td><td><b>'+countItems(monthObj)+' days </b> : ');
-					for (var day in monthObj) {
-						if(!monthObj.hasOwnProperty(day)) {
-							continue;
-						}
-						for(var c=0;c<monthObj[day].length;c++) {
-							htmlContent += (day+'-'+friends[monthObj[day][c]]+', ');
-						}
-					}
-					htmlContent = htmlContent.substring(0,htmlContent.length-2);
-					htmlContent += ('</td></tr>');
-				}
-				htmlContent += '</table>'
-				document.getElementById('resp').innerHTML = htmlContent;
-			*/			
+		var displayBirthdayInfo = function() {		
 			displayCurrentYear('2011');
 			displayUpcomingBirthdays();
 			drawBirthdayTable();
@@ -378,30 +333,19 @@
 					sortable.push([key, albumInfo[key]])
 			}
 			sortable.sort(function(a, b) {return b[1] - a[1]});
-
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Name');
-			data.addColumn('number', 'Albums');
-			data.addColumn('string', 'ID');
-			data.addRows(10);
+			
+			var albumData = [];
 			for (var i=0;i<sortable.length;i++) {
 				if(i==10)
 					break;
 				log('Adding '+friends[sortable[i][0]]+' and '+sortable[i][1]+' to the album list');
-				data.setValue(i, 0, friends[sortable[i][0]]);
-				data.setValue(i, 1, sortable[i][1]);
-				data.setValue(i, 2, sortable[i][0]);
+				var temp = [];
+				temp.push(sortable[i][0]);
+				temp.push(sortable[i][1]);
+				albumData.push(temp);
 			}
-
-			var chart = new google.visualization.PieChart(document.getElementById('album_chart_div'));
-			chart.draw(data, {width: 600, height: 400, title: 'Top 10 friends with most number of albums'});
-
-			google.visualization.events.addListener(chart, 'select', function() {
-				var selection = chart.getSelection();
-				var userid = data.getValue(selection[0].row, 2);
-				//alert(userid);
-				getAlbumsForUser(userid);
-			});  			
+			highalbumoptions.series[0].data = albumData;
+			var t = new Highcharts.Chart(highalbumoptions);
 		}
 
 		function drawPhotoChart() {
@@ -412,63 +356,46 @@
 			}
 			sortable.sort(function(a, b) {return b[1] - a[1]});
 
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Name');
-			data.addColumn('number', 'Photos');
-			data.addColumn('string', 'ID');
-			data.addRows(10);
+			var photoData = [];
 			for (var i=0;i<sortable.length;i++) {
 				if(i==10)
 					break;
 				log('Adding '+friends[sortable[i][0]]+' and '+sortable[i][1]+' to the photo list');
-				data.setValue(i, 0, friends[sortable[i][0]]);
-				data.setValue(i, 1, sortable[i][1]);
-				data.setValue(i, 2, sortable[i][0]);
+				var temp = [];
+				temp.push(sortable[i][0]);
+				temp.push(sortable[i][1]);
+				photoData.push(temp);
 			}
-
-			var chart = new google.visualization.PieChart(document.getElementById('photo_chart_div'), {is3D:true});
-			chart.draw(data, { width: 600, height: 400, title: 'Top 10 friends with most number of photos'});
-
-			google.visualization.events.addListener(chart, 'select', function() {
-				var selection = chart.getSelection();
-				var userid = data.getValue(selection[0].row, 2);
-				//alert(userid);
-				getPhotosForUser(userid);
-			}); 			
+			highphotooptions.series[0].data = photoData;
+			var t = new Highcharts.Chart(highphotooptions);			
 		}
 
 		function drawGenderChart() {
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Gender');
-			data.addColumn('number', 'Friends');
-			data.addRows(countItems(genderInfo));
-			var i=0;
+			var genderData = [];
 			for (var key in genderInfo) {
 				if (genderInfo.hasOwnProperty(key)) {
-					data.setValue(i, 0, key);
-					data.setValue(i, 1, genderInfo[key].length);
-					i++;
+					var temp = [];
+					temp.push(key);
+					temp.push(genderInfo[key].length);
+					genderData.push(temp);
 				}
 			}
-			var chart = new google.visualization.PieChart(document.getElementById('gender_chart_div'));
-			chart.draw(data, {width: 600, height: 400, title: 'Gender distribution of your friends'});
+			highgenderoptions.series[0].data = genderData;
+			var t = new Highcharts.Chart(highgenderoptions);				
 		}
 
 		function drawEducationChart() {
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Education');
-			data.addColumn('number', 'Friends');
-			data.addRows(countItems(educationInfo));
-			var i=0;
+			var educationData = [];
 			for (var key in educationInfo) {
 				if (educationInfo.hasOwnProperty(key)) {
-					data.setValue(i, 0, key);
-					data.setValue(i, 1, educationInfo[key].length);
-					i++;
+					var temp = [];
+					temp.push(key);
+					temp.push(educationInfo[key].length);
+					educationData.push(temp);
 				}
 			}
-			var chart = new google.visualization.PieChart(document.getElementById('education_chart_div'));
-			chart.draw(data, {width: 600, height: 400, title: 'Education distribution of your friends'});
+			higheducationoptions.series[0].data = educationData;
+			var t = new Highcharts.Chart(higheducationoptions);			
 		}
 
 		function initialize() {
@@ -753,7 +680,8 @@
 								continue;
 							}
 							if(data[p].type=='video') {
-								data[p].name;;
+								message = '(video)';
+								//data[p].name
 							}
 							var tempobjarr = [];
 							if(data[p].comments) {
@@ -787,7 +715,9 @@
 								if(data[p].likes || data[p].comments)
 									message += ']';
 								*/
-								tempobjarr.push({'postid':postid, 'user': user, 'friendid':friendid, 'title':title, 'message':message, 'createdtime':createdtime});
+								if(message && message!='') {
+									tempobjarr.push({'postid':postid, 'user': user, 'friendid':friendid, 'title':title, 'message':message, 'createdtime':createdtime});
+								}
 							}
 							objs = objs.concat(tempobjarr);
 						}
@@ -830,12 +760,10 @@
 
 			var friendsDropdown = document.createElement('select');
 			friendsDropdown.setAttribute('id', 'friendselect');	
-			//friendsDropdown.setAttribute('onChange', 'reloadTimeline();');
 			friendsDropdown.options[friendsDropdown.options.length] = new Option('You', 'me', true, true);
 			
 			var friendsDropdown2 = document.createElement('select');
 			friendsDropdown2.setAttribute('id', 'friendsalbumselect');	
-			//friendsDropdown2.setAttribute('onChange', 'getAlbumsForDropdown();');
 			friendsDropdown2.options[friendsDropdown2.options.length] = new Option('You', 'me', true, true);
 
 			for(var i=0;i<tempArr.length;i++) {
@@ -887,30 +815,62 @@
 				}
 				mutualFriends[curUser][mutualFriends[curUser].length] = curMapping['uid2'];
 			}
-
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Friend');
-			data.addColumn('number', 'Mutual Friends');
-			data.addRows(countItems(mutualFriends));
-			var p=0;
+			
+			var friendCategories = [], friendData = [];
 			for(var m in mutualFriends) {
 				var allFriends = mutualFriends[m];
-				data.setValue(p, 0, friends[m]);
-				data.setValue(p, 1, allFriends.length);
-				p++;
+				friendCategories.push(friends[m]);
+				friendData.push(allFriends.length);
 			}
-			new google.visualization.ColumnChart(document.getElementById('mutualFriends')).
-				draw(data,
-				   {width:1200, height:900,
-					chartArea:{left:90, top:90},
-					legend: 'top',
-					hAxis: {textPosition:"none"},
-					vAxis: {title: "Number of mutual friends"}}
-			);
+			highfriendoptions.xAxis.categories = friendCategories;
+			highfriendoptions.series[0].data = friendData;
+			
+			var t = new Highcharts.Chart(highfriendoptions);			
 
 		}
 
+		function loadLikesInfo() {
+			FB.api('/me/likes', function(response) {
+				for(var i=0;i<response.data.length;i++) {
+					likes[response.data[i].id] = response.data[i].name;
+				}			
+			});
+		}
+
+		function displayMutualLikesInfo() {
+			var e = document.createElement('script');
+			e.type = 'text/javascript';
+			e.src = "https://api.facebook.com/method/fql.query?query=select%20uid%2C%20page_id%2C%20type%20%20from%20page_fan%20where%20page_id%20in%20(select%20page_id%20from%20page_fan%20where%20uid%20%3D%20me())%20and%20uid%20%20in%20(select%20uid2%20from%20friend%20where%20uid1%3Dme())%20&access_token="+userAccessToken+"&format=json&callback=foundMutualLikes";
+			e.async = true;
+			document.getElementById('mutuallikes').appendChild(e);
+		}
 		
+		function foundMutualLikes(resp) {
+			mutualLikes = {};
+			var arrObjs = resp;
+			for(var m=0;m<arrObjs.length;m++) {
+				var curMapping = arrObjs[m];
+				var curPage = curMapping['page_id'];
+				if(mutualLikes[curPage]) {
+				} else {
+					mutualLikes[curPage] = [];
+				}
+				mutualLikes[curPage][mutualLikes[curPage].length] = curMapping['uid'];
+			}
+
+			var likeCategories = [], likeData = [];
+			for(var m in mutualLikes) {
+				var allFriends = mutualLikes[m];
+				likeCategories.push(likes[m]);
+				likeData.push(allFriends.length);
+			}
+			highlikeoptions.xAxis.categories = likeCategories;
+			highlikeoptions.series[0].data = likeData;
+			
+			var t = new Highcharts.Chart(highlikeoptions);
+
+		}
+
 		String.prototype.getDateFromfacebookFormat = function() {
 			var d    = this.split(/[-:T+]/); d[1] -= 1; d.pop();
 			var date = new Date(Date.UTC.apply(Date, d));		
