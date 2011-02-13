@@ -1,0 +1,224 @@
+	/* CSS for overall look and feel of the page */
+	body, table, tr, td {
+		font-family: Arial, Sans-Serif;
+		font-size: small;
+	}
+	a, a:hover, a:visited {
+		color: #0000AA;
+	}
+	
+	/* CSS to display friends images */
+	div.userbox {
+		float:left;width:200px;height:75px;
+	}
+
+	/* CSS to display album images */
+	div.albumbox {
+		width:300px;
+		height:120px;
+		float:left;
+		border:1px solid #eeeeee;
+		padding:10px;
+		margin-right:15px;
+		margin-bottom:15px;
+		overflow:hidden;
+		padding-top:5px;
+	}
+	div.albumbox:hover {
+		border:1px solid #bbbbbb;
+	}	
+	div.albumimage{
+		float:left;
+		width:120px;
+		height:110px;
+		background-repeat: no-repeat;
+		background-position: 50% 25%;		
+	}
+	div.albumtext {
+		float:left;
+		margin-left:10px;
+		width: 160px;
+	}	
+	
+	/* CSS to display picture images */
+	div.picturebox {
+		float:left;
+		width:100px;
+		height:100px;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		border:1px solid #eeeeee;
+		padding:2px;
+		margin-right:5px;
+		margin-bottom:5px;
+	}
+	div.picturebox:hover {
+		border:1px solid #bbbbbb;
+	}	
+	
+	/* CSS to display page header and footers */
+	div.heading {
+		border-bottom: 15px solid #e8eef7;
+	}	
+	div.footer {
+		margin-top:15px;
+		padding-top:10px;
+		border-top: 1px dashed #AAAAAA;
+		text-align:center;
+		align:center;		
+		color:#AAAAAA;
+	}	
+	
+	div#loginbox {
+		float:right;
+		width:300px;
+	}
+	
+	/* CSS to display page content section in the middle */
+	div.block {
+		margin-left:20px;
+		margin-top:10px;
+		margin-right:10px;
+	}
+	
+	/* CSS to display navigation menu */
+	ul#menu {
+		margin : 0;
+		padding : 0px;
+		width: 100px;
+		background-color: #e8eef7;
+		height: 100%;
+	}
+	ul#menu li.tab	{
+		list-style-type : none;
+		padding : 10px;
+		color: #112aba;
+		background-color: #e8eef7;
+		font-weight: bold;
+		cursor: pointer;
+		margin-left: 5px;
+	}
+	ul#menu li.tab:hover {
+		text-decoration:underline;		
+	}	
+	ul#menu li.selected	{
+		list-style-type : none;
+		background-color: #fff;
+		color: #000;
+		border: 1px solid #6B90DA
+		border-right: 1px solid #fff;
+	}
+	ul#menu li.selected:hover {
+		text-decoration:none;		
+	}	
+
+	/* CSS for general show and hide of content blocks */
+	.hide {
+		display : none;
+	}
+	.show {
+		display : ;
+	}	
+
+	/* CSS for formatting */
+	div.bold {
+		font-weight:bold;
+	}
+	div.spacer {
+		clear: both;
+	}	
+
+	/* CSS for the FAQ page */
+	div.faq {
+		background-color: #e8eef7;
+		border-top: 1px solid #B9C3F8;
+		padding:4px;
+		margin-left:-10px;
+		margin-top:30px;
+		margin-bottom:5px;
+		font-weight:bold;
+	}
+	
+	/* CSS for progressbar */
+	.progressbar {
+		height: 5px;
+		width: 200px;
+		align:left;
+		background-color: #e8eef7;
+		border: 1px solid #112aba;
+	}
+	.progress {
+		height: 5px;
+		width: 0px;
+		background-color: #112aba;
+	}
+
+	/* CSS overrides for timeline */	
+	.timeline-event-bubble-title {border: none}
+	.simileAjax-bubble-close-pngTranslucent {background: none}
+
+	/* Lightbox background */
+	#mask {
+		display:none;
+		background:#aaaaaa;
+		opacity:0.9;
+		filter:alpha(opacity=90);
+		position:absolute;
+		top:0px;
+		left:0px;
+		z-index:1000;
+	}
+	/* Lightbox panel with some content */
+	#lightbox-panel {
+		display:none;
+		position:fixed;
+		top:50px;
+		left:5px;
+		width:300px;
+		padding:10px 15px 10px 15px;
+		border:2px solid #CCCCCC;
+		background-color: #e8eef7;
+		color: #112aba;
+		z-index:1001;
+	}
+
+	
+	.individualContent {
+		padding: 20px;
+	}
+	#content {
+		border: 0px;
+		border-right: 5px solid #e8eef7;
+		width: 600px;
+		padding:20px;
+	}
+	.hint {
+		font-size: smallest;
+		color: #999;
+	}
+	.expression {
+		font-size: medium;
+		font-weight:bold;
+		color: #630;
+		background-color: #FFF790;
+		margin-left: 50px;
+	}
+	.errors {
+		font-size: smallest;
+		font-weight:bold;
+		color: #A00;
+	}
+	.subcontent {
+		margin-left: 25px;
+	}
+	input.btn {
+	  	color:#630;
+	  	font: bold 84% Arial, sans-serif;
+	  	background-color:#FFFFCC;
+	  	border: 1px doubleline #630;
+		filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#ffffffff',EndColorStr='#ffeeddaa');
+	}
+
+
+
+	
