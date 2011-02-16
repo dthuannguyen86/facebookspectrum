@@ -3,8 +3,8 @@
 		var userLoggedIn = false;
 		var loggedInUserId;
 		var userAccessToken;
-	    	var friends = {};
-	    	var likes = {};
+		var friends = {};
+		var likes = {};
 		var albumInfo = {};
 		var photosInfo = {};
 		var locationInfo = {};
@@ -72,11 +72,10 @@
 					}
 
 					if(nextUrl!='') {
-						//nextUrl = unescape(nextUrl);
 						nextUrl = nextUrl.substring(nextUrl.indexOf("/albums"));
 						nextUrl = nextUrl.replace(escape(friendsList), k);
-						//nextUrl = escape(nextUrl);
-						revealAlbumInfo(nextUrl);
+						//Do not call again, comment this for now..
+						//revealAlbumInfo(nextUrl);
 					} else {
 						AlbumsLoaded = true;
 					}
