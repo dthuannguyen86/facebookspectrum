@@ -76,6 +76,7 @@
 						nextUrl = nextUrl.replace(escape(friendsList), k);
 						//Do not call again, comment this for now..
 						//revealAlbumInfo(nextUrl);
+						AlbumsLoaded = true;
 					} else {
 						AlbumsLoaded = true;
 					}
