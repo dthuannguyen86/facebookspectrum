@@ -38,7 +38,7 @@
 				//document.getElementById('album_charts').innerHTML += '<br>FriendList CSV = '+friendsList;
 				url = '/albums?ids='+friendsList+'&fields=id,name,count,link';
 			}
-			FB.api(url, { limit: 25 }, function(response) {
+			FB.api(url, { limit: 50 }, function(response) {
 				if(response.error) {
 					AlbumsLoaded = true;
 					return;
@@ -71,17 +71,19 @@
 						userAccessToken = accessToken;
 					}
 
+					/* 
+					//Do not call again, comment this for now and increase the limit to 50..
 					if(nextUrl!='') {
 						nextUrl = nextUrl.substring(nextUrl.indexOf("/albums"));
-						nextUrl = nextUrl.replace(escape(friendsList), k);
-						//Do not call again, comment this for now..
-						//revealAlbumInfo(nextUrl);
-						AlbumsLoaded = true;
+						nextUrl = nextUrl.replace(escape(friendsList), k);						
+						revealAlbumInfo(nextUrl);						
 					} else {
 						AlbumsLoaded = true;
 					}
+					*/
 				}
-
+				//Done loading all the album information
+				AlbumsLoaded = true;
 			});
 		}
 
@@ -103,7 +105,7 @@
 			if(!url) {
 				url = '/'+user+'/albums?fields=id,name,count,link,from,description,created_time,location,comments';
 			}
-			FB.api(url, { limit: 25 }, function(response) {
+			FB.api(url, { limit: 50 }, function(response) {
 				var out = [''];
 				if(response.error) {
 					albumsLoading = false;				
@@ -208,7 +210,7 @@
 		
 		var getPhotosForAlbums = function(albumIds) {
 			url = '/photos?ids='+albumIds+'&fields=id,link,picture,icon,from';
-			FB.api(url, { limit: 25 }, function(response) {
+			FB.api(url, { limit: 50 }, function(response) {
 				var parentObj = document.getElementById('album_detail');
 				var out = [''];
 				if(response.error) {
@@ -649,7 +651,7 @@
 			}
 			url = url + '';
 
-			FB.api(url, { limit: 25 }, function(response) {
+			FB.api(url, { limit: 200 }, function(response) {
 				if(response.error) {
 					FeedInfo = true;
 					return;
@@ -731,8 +733,10 @@
 
 				if(nextUrl!='') {
 					nextUrl = nextUrl.substring(nextUrl.indexOf('?')+1);
-					FeedInfo = false;
-					retrieveFeedInfo(user, nextUrl);
+					//Comment this for now and increase the limit to 100
+					//FeedInfo = false;
+					//retrieveFeedInfo(user, nextUrl);
+					FeedInfo = true;
 				} else {
 					FeedInfo = true;
 				}
