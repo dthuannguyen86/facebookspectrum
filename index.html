@@ -121,10 +121,10 @@
 	}
 
 	function startLoadingContents() {
-		showLoadingMessage();
+		//showLoadingMessage();
 		userGreeting();
 		loadProfileData();
-		checkContentsLoaded();
+		//checkContentsLoaded();
 	}
 
 	function hideLoadingMessage(){
@@ -267,8 +267,9 @@
 				<div id="location_div_table" style="margin-top:20px;"></div>
 			</div>
 			<div class="block hide" id="albumsBlock">
+				Ooops.. Information currently unavailable, Sorry for the inconvenience, Please try again later..
 				<!--albumsBlock-->
-				<table border="0" cellspacing="0" cellpadding="0">
+				<table border="0" cellspacing="0" cellpadding="0" style="display:none">
 					<tr valign="top">
 						<td colspan="2">
 							<p>The following pie charts display your top 10 friends with the most number of albums or photos. You can click on a slice on the pie chart to display more information.</p>
@@ -477,10 +478,11 @@
 					//	break;
 				}
 
+/*
 				(function() {
 					revealAlbumInfo();
 				})();
-
+*/
 				(function() {
 					displayAllFriends();
 				})();
@@ -496,6 +498,7 @@
 				(function() {
 					loadLikesInfo();
 				})();
+
 			});
 		}
 
