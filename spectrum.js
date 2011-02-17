@@ -184,7 +184,7 @@
 			if(!url) {
 				url = '/'+user+'/albums?fields=id';
 			}
-			FB.api(url, { limit: 25 }, function(response) {
+			FB.api(url, { limit: 50 }, function(response) {
 				var out = [''];
 				if(response.error) {
 					albumsLoading = false;
