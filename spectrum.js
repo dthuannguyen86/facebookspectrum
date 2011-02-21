@@ -23,7 +23,8 @@
 		var lat_max = -90;
 		var lng_min = 180;
 		var lng_max = -180;
-		var FeedInfo = true;
+		var FeedLoadComplete = true;
+		var OFFSETCOUNT = 50;
 		var AlbumsLoaded = false;
 		
 		var albumsLoading = false;
@@ -632,33 +633,38 @@
 		
 		function displayTimeline(user) {
 			$('#friendselect').change(reloadTimeline);
-			if(FeedInfo) {
-				FeedInfo = false;
+			if(FeedLoadComplete) {
+				FeedLoadComplete = false;
 				clearTimeline();
 				retrieveFeedInfo(user);
 			}
 		}
 
-		var retrieveFeedInfo = function (user, url) {
+		var retrieveFeedInfo = function (user, untilTime) {
 
-			log('<br>retrieveFeedInfo with url : '+url);
+			log('<br>retrieveFeedInfo with offset : '+untilTime);
 			if(!user)
 				user = 'me';
-			if(!url) {
-				url = '/'+user+'/feed?fields=id,type,message,likes,comments,from';
-			} else {
-				url = '/'+user+'/feed?'+url;
-			}
-			url = url + '';
+			
+			var opts = {};
+			opts['limit'] = OFFSETCOUNT;
+			if(untilTime)	
+				opts['until'] = untilTime;
 
-			FB.api(url, { limit: 200 }, function(response) {
+			url = '/'+user+'/feed?fields=id,type,message,likes,comments,from';
+
+			FB.api(url, opts, function(response) {
 				if(response.error) {
-					FeedInfo = true;
+					FeedLoadComplete = true;
 					return;
 				}
-				var nextUrl = '', objs = [];
-				if(response.paging)
-					nextUrl = response.paging.next;
+				var untilTime = '', objs = [];
+				if(response.paging && response.paging.next) {
+					untilTime = response.paging.next;
+					untilTime = untilTime.substring(untilTime.indexOf('until=')+6);
+					if(untilTime.indexOf('&')!=-1)
+						untilTime = untilTime.substring(0,untilTime.indexOf('&'));					
+				}
 				if(response.data) {
 					var data = response.data;
 					if(data && data.length) {
@@ -731,14 +737,12 @@
 					updateTimeline(objs);
 				}
 
-				if(nextUrl!='') {
-					nextUrl = nextUrl.substring(nextUrl.indexOf('?')+1);
-					//Comment this for now and increase the limit to 100
-					//FeedInfo = false;
-					//retrieveFeedInfo(user, nextUrl);
-					FeedInfo = true;
+				if(untilTime && untilTime!='') {
+					untilTime = parseInt(untilTime,10)-1;
+					FeedLoadComplete = false;
+					retrieveFeedInfo(user, untilTime);
 				} else {
-					FeedInfo = true;
+					FeedLoadComplete = true;
 				}
 			});
 		}
