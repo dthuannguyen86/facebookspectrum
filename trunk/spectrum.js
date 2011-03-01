@@ -26,6 +26,7 @@
 		var FeedLoadComplete = true;
 		var OFFSETCOUNT = 50;
 		var AlbumsLoaded = false;
+		var activityloadcount = 0;
 		
 		var albumsLoading = false;
 		
@@ -833,8 +834,7 @@
 			highfriendoptions.xAxis.categories = friendCategories;
 			highfriendoptions.series[0].data = friendData;
 			
-			var t = new Highcharts.Chart(highfriendoptions);			
-
+			var t = new Highcharts.Chart(highfriendoptions);	
 		}
 
 		function loadLikesInfo() {
@@ -876,7 +876,6 @@
 			highlikeoptions.series[0].data = likeData;
 			
 			var t = new Highcharts.Chart(highlikeoptions);
-
 		}
 
 		String.prototype.getDateFromfacebookFormat = function() {
