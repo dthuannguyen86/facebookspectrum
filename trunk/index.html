@@ -582,9 +582,8 @@
 					loadLikesInfo();
 				})();
 
-				(function() {
-					captureActivityMetrics();
-				})();
+				window.setTimeout("captureActivityMetrics();", 2000);
+
 			});
 		}
 
