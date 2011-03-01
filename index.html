@@ -13,6 +13,7 @@
 <script type="text/javascript" src="wordcumulus.js"></script>
 <script type="text/javascript" src="swfobject.js"></script>
 <script type="text/javascript" src="spectrum.js"></script>
+<script type="text/javascript" src="activity.js"></script>
 
 <link rel="shortcut icon" href="/svn/trunk/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="spectrum.css">
@@ -67,6 +68,8 @@
 			} else if(tab=='other') {
 				drawGenderChart();
 				drawEducationChart();
+			} else if(tab=='activity') {
+				displayActivityChart();
 			} else if(tab=='more') {
 
 			} else {
@@ -204,6 +207,7 @@
 				<li class="tab" onclick="switchTab('albums');">Albums</li>
 				<li class="tab" onclick="switchTab('other');">Other</li>
 				<li class="tab" onclick="switchTab('mutuals');">Mutuals</li>
+				<li class="tab" onclick="switchTab('activity');">Activity</li>
 				<li class="tab" onclick="switchTab('more');">More</li>
 				<li class="tab" onclick="switchTab('faq');">FAQ</li>
 			</ul>
@@ -216,6 +220,23 @@
 					<p><div id="welcomeMsg"></div></p>
 					<p>Thank you for trying out <b>Facebook Spectrum</b>. Facebook Spectrum is an application utilizing Facebook APIs to provide you a birds eye view of all your friends on facebook.</p>
 					<p>You will need to be logged in to Facebook to access this application. Please check the FAQ section for more information. </p>
+					<p>
+						Here are some of the details you can get from the application:<br>
+						<ul>
+						<li> Where your friends are located on a Google map </li>
+						<li> A timeline view of your or your friends’ posts with thumbnails </li>
+						<li> A 3D spherical view of all your friends.. </li>
+						<li> Who among your friends has the most number of albums? </li>
+						<li> Who among your friends has the most number of pictures? </li>
+						<li> Whose profile is the most active in the last 30 days? </li>
+						<li> How many mutual friends do you share with your FB friends? </li>
+						<li> How many of your friends like what you like? </li>
+						<li> A calendar view to disply your friends birthdays, Also gives you a list of upcoming birthdays </li>
+						<li> How your friends are distributed with respect to gender </li>
+						<li> How your friends are distributed with respect to education </li>
+						.. and much more..
+						</ul>
+					</p>
 					<p>Feel free to share it with your friends and I appreciate your valuable feedback..</p>
 				</div>
 			</div>
@@ -238,7 +259,20 @@
 			<div class="block hide" id="moreBlock">
 				<!--moreBlock-->
 				<div style="margin:20px">
-					More features will be added with time..
+					This is a hobby project for me. I will keep adding more features with time.. If you have any suggestions/comments, please post them on the <a href="http://www.facebook.com/apps/application.php?id=132839880113484" target="new">application page</a>.
+				</div>
+			</div>
+			<div class="block hide" id="activityBlock">
+				<!--activityBlock-->
+				<div style="margin:20px">
+					Some of your friends might have a very active facebook page with lots of status updates, video postings, photos and much more..
+					Looking at your news feed you might get an idea of who, among your friends, is more active, but here is your chance to see the proof of it..
+					The following chart displays the activity on the walls of all your facebook friends in the last 30 days.
+					You can also click on the legend items to eliminate the types of posts you are not interested in..<br><br>
+					<u>Note</u>: The chart might take some time to load if you have a lot of friends..
+					<br><br>
+					<div id="highactivity">Loading activity chart...</div>
+					<!--<div id="activityLog"></div>-->
 				</div>
 			</div>
 			<div class="block hide" id="mutualsBlock">
@@ -548,6 +582,9 @@
 					loadLikesInfo();
 				})();
 
+				(function() {
+					captureActivityMetrics();
+				})();
 			});
 		}
 
