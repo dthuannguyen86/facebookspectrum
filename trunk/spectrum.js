@@ -15,6 +15,7 @@
 		var mutualFriends = {};
 		var mutualLikes = {};
 		var educationInfo = {};
+		var activityData = {};
 		var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		var map;
 		var infowindow;
@@ -454,7 +455,7 @@
 					log('Geocoded '+address+' to '+results[0].geometry.location.toString());
 				} else {
 					geocodeInfo[address] = null;
-					alert("Could not geocode "+address+" - Reason: " + status);
+					//alert("Could not geocode "+address+" - Reason: " + status);
 				}
 			});
 		}
