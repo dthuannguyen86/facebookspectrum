@@ -1,3 +1,4 @@
+		
 		function constructPartialCsv(obj, start, end) {
 			var c = '';
 			var count = 0;
@@ -39,19 +40,43 @@
 				activityloadcount++;
 			}
 
-			displayActivityChart();
+			refreshActivityChart();
 			
+		}
+
+		function refreshActivityChart() {
+			if(activityloadcount==0) {
+				//document.getElementById('activityLog').innerHTML += 'Done loading ('+activityloadcount+'). Rendering chart now..<br>';
+				displayActivityChart();
+			} else {
+				//document.getElementById('activityLog').innerHTML += 'Still loaing ('+activityloadcount+')..<br>';
+				window.setTimeout("refreshActivityChart()", 1000);
+			}		
 		}
 
 
 		function displayActivityChart() {
-			if(activityloadcount==0) {
-				//document.getElementById('activityLog').innerHTML += 'Done loading ('+activityloadcount+'). Rendering chart now..<br>';
-				var t = new Highcharts.Chart(activityoptions);	
-			} else {
-				//document.getElementById('activityLog').innerHTML += 'Still loaing ('+activityloadcount+')..<br>';
-				window.setTimeout("displayActivityChart()", 1000);
+		
+			activityoptions.xAxis.categories = [];
+			activityoptions.series[0].data = [];
+			activityoptions.series[1].data = [];
+			activityoptions.series[2].data = [];
+			activityoptions.series[3].data = [];
+			activityoptions.series[4].data = [];
+			
+			for(var obj in activityData) {
+				if(!activityData.hasOwnProperty(obj))
+					continue;
+					
+				activityoptions.xAxis.categories.push(friends[obj]);
+				activityoptions.series[0].data.push(activityData[obj]['V']);
+				activityoptions.series[1].data.push(activityData[obj]['S']);
+				activityoptions.series[2].data.push(activityData[obj]['L']);
+				activityoptions.series[3].data.push(activityData[obj]['P']);
+				activityoptions.series[4].data.push(activityData[obj]['O']);
 			}
+			
+			var t = new Highcharts.Chart(activityoptions);	
 		}
 
 		var retrieveActivityInfo = function (user, sinceTime) {
@@ -92,12 +117,13 @@
 					}
 					//Add a category and series data
 					if(videocount!=0 || statuscount!=0 || linkcount!=0 || photocount!=0 || othercount!=0) {
-						activityoptions.xAxis.categories.push(friends[k]);
-						activityoptions.series[0].data.push(videocount);
-						activityoptions.series[1].data.push(statuscount);
-						activityoptions.series[2].data.push(linkcount);
-						activityoptions.series[3].data.push(photocount);
-						activityoptions.series[4].data.push(othercount);
+						var tempObj = {};
+						tempObj['V'] = videocount;
+						tempObj['S'] = statuscount;
+						tempObj['L'] = linkcount;
+						tempObj['P'] = photocount;
+						tempObj['O'] = othercount;
+						activityData[k] = tempObj;
 					}
 					
 					//out.push('<b>', friends[k], '</b> : ', data.length ,' - S:', statuscount ,' - V:', videocount,' - L:', linkcount,' - O:', othercount,' - P:', photocount,'<br>');
