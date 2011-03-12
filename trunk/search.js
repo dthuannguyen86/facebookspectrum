@@ -31,6 +31,10 @@
 		});
 
 		function searchFacebook() {
+			searchStr = document.getElementById('searchStr').value;
+			if(searchStr=='')
+				return;
+		
 			if(searchtimer)
 				window.clearTimeout(searchtimer);
 			for(var i=0;i<individualtimers.length;i++) {
@@ -38,9 +42,6 @@
 					window.clearTimeout(individualtimers[i]);
 			}
 			lastpolltime = 0;
-			searchStr = document.getElementById('searchStr').value;
-			if(searchStr=='')
-				return;
 			$("#searchResults .item").removeClass('border').html('');
 			continueSearching();
 		}
