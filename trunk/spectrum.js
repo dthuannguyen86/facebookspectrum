@@ -617,7 +617,7 @@
 		function log(s) {
 			if(DEBUG) {
 				document.getElementById('debugLog').innerHTML = '=> '+s+'<br>'+document.getElementById('debugLog').innerHTML;
-				document.getElementById('debugLog').scrollTop=9999;
+				//document.getElementById('debugLog').scrollTop=9999;
 			}
 		}
 

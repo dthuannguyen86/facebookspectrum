@@ -13,6 +13,7 @@
 <script type="text/javascript" src="wordcumulus.js"></script>
 <script type="text/javascript" src="swfobject.js"></script>
 <script type="text/javascript" src="spectrum.js"></script>
+<script type="text/javascript" src="search.js"></script>
 <script type="text/javascript" src="activity.js"></script>
 
 <link rel="shortcut icon" href="/svn/trunk/favicon.ico" type="image/x-icon" />
@@ -68,6 +69,8 @@
 			} else if(tab=='other') {
 				drawGenderChart();
 				drawEducationChart();
+			} else if(tab=='search') {
+				//anything specific to search?
 			} else if(tab=='activity') {
 				displayActivityChart();
 			} else if(tab=='more') {
@@ -208,6 +211,7 @@
 				<li class="tab" onclick="switchTab('other');">Other</li>
 				<li class="tab" onclick="switchTab('mutuals');">Mutuals</li>
 				<li class="tab" onclick="switchTab('activity');">Activity</li>
+				<li class="tab" onclick="switchTab('search');">Search</li>
 				<li class="tab" onclick="switchTab('more');">More</li>
 				<li class="tab" onclick="switchTab('faq');">FAQ</li>
 			</ul>
@@ -255,6 +259,24 @@
 				<div style="float:left;margin:15px;padding:15px;border:1px solid #e8eef7;width:600px">
 					<div id="higheducation"></div>
 				</div>
+			</div>
+			<div class="block hide" id="searchBlock">
+				<!--searchBlock-->
+				<div style="margin:20px">
+					Facebook is one of the most active websites on the internet. It receives millions of posts every day. If you want to know what people are posting on Facebook at this moment, type your search query and hit Enter.
+					You would be able to see the most up-to-date and realtime feed of the posts as they are added to Facebook. Please note that this is not limited to your friends feed and will contain results from any of the 500+ million users on Facebook.
+					<br>
+					<br>
+					<b>Looking for </b>: <input type="text" class="searchBox" id="searchStr" value="cricket"> <input type="button" class="searchButton" value="Search" onclick="searchFacebook();"><br>
+					<div id="searchResults">
+						<div class="item"></div>
+						<div class="item"></div>
+						<div class="item"></div>
+						<div class="item"></div>
+						<div class="item"></div>
+					</div>
+				</div>
+
 			</div>
 			<div class="block hide" id="moreBlock">
 				<!--moreBlock-->
@@ -431,11 +453,10 @@
 
 <div class="footer">[Facebook Spectrum is not affiliated with Facebook]</div>
 
-<div style="position:absolute;top:10px;right:20px;height:90%;display:none">
+<div style="display:none">
 <span>Debug Log:</span><a href="javascript:void(0);" onclick="document.getElementById('debugLog').innerHTML='';">Clear</a>
-<div id="debugLog" style="position:absolute;width:400px;height:200px;overflow:auto;border:2px solid#a6ce39;left:10px;bottom:10px;display:none"></div>
+<div id="debugLog" style="width:600px;height:100px;overflow:scroll;border:2px solid#638254;display:none"></div>
 </div>
-
 
 <div id="fb-root"></div>
 	<script type="text/javascript">
