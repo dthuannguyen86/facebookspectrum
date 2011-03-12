@@ -39,6 +39,8 @@
 			}
 			lastpolltime = 0;
 			searchStr = document.getElementById('searchStr').value;
+			if(searchStr=='')
+				return;
 			$("#searchResults .item").removeClass('border').html('');
 			continueSearching();
 		}
