@@ -103,7 +103,7 @@
 				html += '<img src="'+obj.icon+'">&nbsp;';
 			}
 			html += '<span style="color:#999999">'+locatime+'</span></td></tr></table>';
-			$("<div>").addClass('item').addClass('border').css('opacity', '1').html(html).insertBefore("#searchResults .item:first").hide().slideDown(500);
+			$("<div>").addClass('item').addClass('border').css('opacity', '1').html(html).insertBefore("#searchResults .item:first").hide().fadeIn(1000);
 		}
 
 		/*
