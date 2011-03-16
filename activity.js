@@ -48,6 +48,7 @@
 			if(activityloadcount==0) {
 				//document.getElementById('activityLog').innerHTML += 'Done loading ('+activityloadcount+'). Rendering chart now..<br>';
 				displayActivityChart();
+				document.getElementById('activityincompletemsg').innerHTML = '';
 			} else {
 				//document.getElementById('activityLog').innerHTML += 'Still loaing ('+activityloadcount+')..<br>';
 				window.setTimeout("refreshActivityChart()", 1000);
@@ -55,8 +56,7 @@
 		}
 
 
-		function displayActivityChart() {
-		
+		function displayActivityChart() {		
 			activityoptions.xAxis.categories = [];
 			activityoptions.series[0].data = [];
 			activityoptions.series[1].data = [];
