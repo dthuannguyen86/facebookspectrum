@@ -1,0 +1,1 @@
+java -jar compiler.jar --js=yearview.js --js=visualization.js --js=timeline.js --js=compact-painter2.js --js=UProgressBar.js --js=wordcumulus.js --js=swfobject.js --js=spectrum.js --js=search.js --js=activity.js --js=highchartsoptions.js --js_output_file=closure.js
