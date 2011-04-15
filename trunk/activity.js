@@ -19,7 +19,7 @@
 		}
 		
 		function captureActivityMetrics() {
-		
+			log('Start of captureActivityMetrics');
 			var today = new Date();
 			var then = today.setDate(today.getDate()-30);
 			
@@ -34,10 +34,10 @@
 					};				
 				}(friendsList, then);
 				
+				activityloadcount++;
 				window.setTimeout(func, current*100);
 				
-				current += 20;				
-				activityloadcount++;
+				current += 20;								
 			}
 
 			refreshActivityChart();
@@ -131,6 +131,8 @@
 				}
 				
 				//document.getElementById('activityLog').innerHTML += out.join('');
+				
+				displayActivityChart();
 			});
 		}
 		
