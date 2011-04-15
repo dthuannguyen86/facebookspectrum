@@ -35,7 +35,8 @@
 
 		var revealAlbumInfo = function (url) {
 			//document.getElementById('resp').innerHTML += '<br>Entering revealAlbumInfo with url : '+url;
-
+			
+			log('Started loading album information');
 			if(!url) {
 				var friendsList = constructCsv(friends);
 				//document.getElementById('album_charts').innerHTML += '<br>FriendList CSV = '+friendsList;
@@ -87,6 +88,7 @@
 				}
 				//Done loading all the album information
 				AlbumsLoaded = true;
+				log('Completed loading album information');
 			});
 		}
 
@@ -323,6 +325,7 @@
 			
 			dropMarkers();
 			drawLocationTable();
+			log('Drawing map complete');
 		}
 
 		var displayBirthdayInfo = function() {		
@@ -433,7 +436,56 @@
 			}
 		}
 
+
+ 
+		///////////////////////////////////////////////
+		//Replace Geocoding API with Local Search API//
+		///////////////////////////////////////////////
+		var localSearch;
+		var localSearchCounter = 0;
+		var locationArray = [];
+
+		function localSearchComplete() {
+			if (localSearch.results && localSearch.results.length > 0) {
+				var latlng = new google.maps.LatLng(localSearch.results[0].lat, localSearch.results[0].lng);
+				geocodeInfo[locationArray[localSearchCounter]] = latlng;
+			} else {
+				geocodeInfo[locationArray[localSearchCounter]] = null;
+			}
+			localSearchCounter++;
+			localSearchNextAddress();
+		}
+
+		function convertLocationToArray() {
+			for (var key in locationInfo) {
+				if(!locationInfo.hasOwnProperty(key) || key=='Unknown')
+					continue;
+				locationArray[locationArray.length] = key;
+			}
+		}
+
+		function localSearchNextAddress() {
+
+			if(localSearchCounter>=locationArray.length)
+				return;
+				
+			var addr = locationArray[localSearchCounter]; 			
+
+			localSearch = new google.search.LocalSearch();
+			//localSearch.setCenterPoint(addr);
+			localSearch.setSearchCompleteCallback(this, localSearchComplete, null);
+			localSearch.execute(addr); 
+			//google.search.Search.getBranding('branding');
+		}
+				
+		function geocodeAllAddresses() {
+			convertLocationToArray();
+			localSearchNextAddress();
+		}
+		
+
 		//This has to be done in the background to avoid time lag
+		/*
 		function geocodeAllAddresses() {
 			var i=0;
 			for (var key in locationInfo) {
@@ -447,7 +499,8 @@
 				})(key);
 			}
 		}
-
+		*/
+		
 		function geocodeAddress(address) {
 			geocoder.geocode( { 'address': address}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
@@ -616,7 +669,7 @@
 
 		function log(s) {
 			if(DEBUG) {
-				document.getElementById('debugLog').innerHTML = '=> '+s+'<br>'+document.getElementById('debugLog').innerHTML;
+				document.getElementById('debugLog').innerHTML = (new Date())+' => '+s+'<br>'+document.getElementById('debugLog').innerHTML;
 				//document.getElementById('debugLog').scrollTop=9999;
 			}
 		}

@@ -11,8 +11,8 @@ var SHOW_MONTH = "Click to display this month";
 
 /**
  * Given a date, check if it is a leap year.
- * @param {Date} date The date in question.
- * @return {boolean} Whether it is a leap year.
+ * @param date The date in question.
+ * @return Whether it is a leap year.
  */
 function isLeapYear(date) {
   var y = date.getFullYear();
@@ -24,7 +24,7 @@ function isLeapYear(date) {
 
 /**
  * Display the current year.
- * @param {string} opt_override An override year.
+ * @param opt_override An override year.
  */
 function displayCurrentYear(opt_override) {
   var year = opt_override || (new Date()).getFullYear();
@@ -33,8 +33,8 @@ function displayCurrentYear(opt_override) {
 
 /**
  * Get the number of days in a month.
- * @param {Date} date The date in question.
- * @return {number} The number of days in that month.
+ * @param date The date in question.
+ * @return The number of days in that month.
  */
 function getDaysInMonth(date) {
   var days = DAYS_IN_MONTH[date.getMonth()];
@@ -43,9 +43,9 @@ function getDaysInMonth(date) {
 
 /**
  * How many weeks does a given month overlap?
- * @param {number} y The year.
- * @param {number} m The month.
- * @return {number} The number of weeks that the month overlap.
+ * @param y The year.
+ * @param m The month.
+ * @return The number of weeks that the month overlap.
  */
 function getWeeksInMonth(y, m) {
   var firstDate = new Date(y, m, 1);
@@ -58,10 +58,10 @@ function getWeeksInMonth(y, m) {
 
 /**
  * Get the HTML for a specific month.
- * @param {Array<string>} out The string buffer to append the output.
- * @param {number} y The year.
- * @param {number} m The month.
- * @param {number} opt_weeks The minimum number of weeks to display.
+ * @param out The string buffer to append the output.
+ * @param y The year.
+ * @param m The month.
+ * @param opt_weeks The minimum number of weeks to display.
  */
 function getMonthHtml(out, y, m, opt_weeks) {
   var today = new Date();
@@ -122,7 +122,7 @@ function getMonthHtml(out, y, m, opt_weeks) {
 
 /**
  * This is the main drawing function. It will display a specific year.
- * @param {number} year The year to draw.
+ * @param year The year to draw.
  */
 function showYear(y) {
   var out = ['<table>'];
@@ -155,7 +155,7 @@ var BORDER_GREY = '#a2bbd3';
 var DIVIDER = '#c3d9ff';
 
 /**
- * @return {string} A string containing the styles.
+ * @return A string containing the styles.
  */
 function getStyles() {
   var out = ['<style>'];
