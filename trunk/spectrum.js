@@ -557,6 +557,8 @@
 			infoWindowContent += ('<b>'+ids.length+' friend'+(ids.length==1?'':'s')+' in '+city+'</b><br>');
 			for(var p=0;p<ids.length;p++) {
 				infoWindowContent += '<img src="'+pictureInfo[ids[p]]+'" title="'+friends[ids[p]]+'">&nbsp;';
+				if(p%5==4)
+					infoWindowContent += '<br>';
 			}
 			infowindow.setContent(infoWindowContent);
 			infowindow.open(map);
