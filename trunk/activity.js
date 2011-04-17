@@ -56,7 +56,7 @@
 		}
 
 
-		function displayActivityChart() {		
+		function displayActivityChart() {
 			activityoptions.xAxis.categories = [];
 			activityoptions.series[0].data = [];
 			activityoptions.series[1].data = [];
