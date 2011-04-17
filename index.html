@@ -144,6 +144,12 @@
 	 	$("#mask, #lightbox-panel").fadeOut(300);
 	}
 
+	function displayRefreshText() {
+		$("#mask, #lightbox-panel").append('Oops.. Something went wrong. Please <a href="javascript:window.location.reload()">refresh</a> the page');
+	}
+
+	window.setTimeout('displayRefreshText()', 20000);
+
 </script>
 
 </head>
@@ -603,6 +609,7 @@
 				createFriendsDropdown();
 				geocodeAllAddresses();
 				loadLikesInfo();
+				window.setTimeout("captureActivityMetrics();", 8000);
 
 /*
 				(function() {
@@ -625,7 +632,7 @@
 					loadLikesInfo();
 				})();
 */
-				window.setTimeout("captureActivityMetrics();", 2000);
+
 
 			});
 		}
