@@ -37,12 +37,9 @@
 			//document.getElementById('resp').innerHTML += '<br>Entering revealAlbumInfo with url : '+url;
 			
 			log('Started loading album information');
-			if(!url) {
-				var friendsList = constructCsv(friends);
-				//document.getElementById('album_charts').innerHTML += '<br>FriendList CSV = '+friendsList;
-				url = '/albums?ids='+friendsList+'&fields=id,name,count,link';
-			}
-			FB.api(url, { limit: 50 }, function(response) {
+			var friendsList = constructCsv(friends);
+			url = '/albums?fields=id,name,count,link';
+			FB.api(url, { limit: 50, ids : friendsList }, function(response) {
 				if(response.error) {
 					AlbumsLoaded = true;
 					return;
@@ -74,17 +71,6 @@
 						accessToken = accessToken.substring(0, (accessToken.indexOf('&')==-1)?accessToken.length:accessToken.indexOf('&'));
 						userAccessToken = accessToken;
 					}
-
-					/* 
-					//Do not call again, comment this for now and increase the limit to 50..
-					if(nextUrl!='') {
-						nextUrl = nextUrl.substring(nextUrl.indexOf("/albums"));
-						nextUrl = nextUrl.replace(escape(friendsList), k);						
-						revealAlbumInfo(nextUrl);						
-					} else {
-						AlbumsLoaded = true;
-					}
-					*/
 				}
 				//Done loading all the album information
 				AlbumsLoaded = true;
