@@ -79,7 +79,8 @@
 			} else if(tab=='search') {
 				//anything specific to search?
 			} else if(tab=='activity') {
-				displayActivityChart();
+				captureActivityMetrics();
+				//displayActivityChart();
 			} else if(tab=='more') {
 
 			} else {
@@ -609,7 +610,7 @@
 				createFriendsDropdown();
 				geocodeAllAddresses();
 				loadLikesInfo();
-				window.setTimeout("captureActivityMetrics();", 8000);
+				//window.setTimeout("captureActivityMetrics();", 8000);
 
 /*
 				(function() {

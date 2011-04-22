@@ -861,36 +861,39 @@
 		}
 		
 		function displayMutualFriendInfo() {
-			var e = document.createElement('script');
-			e.type = 'text/javascript';
-			e.src = "https://api.facebook.com/method/fql.multiquery?queries=%7B'query1'%3A'SELECT%20uid2%20FROM%20friend%20WHERE%20uid1%20%3D%20"+loggedInUserId+"'%2C'query2'%3A'SELECT%20uid1%2C%20uid2%20FROM%20friend%20WHERE%20uid1%20IN%20(SELECT%20uid2%20FROM%20%23query1)%20AND%20uid2%20IN%20(SELECT%20uid2%20FROM%20%23query1)'%7D&access_token="+userAccessToken+"&format=json&callback=foundMutualFriends";
-			e.async = true;
-			document.getElementById('mutuals').appendChild(e);
-		}
-		
-		function foundMutualFriends(resp) {
-			mutualFriends = {};
-			var arrObjs = resp[1]['fql_result_set'];
-			for(var m=0;m<arrObjs.length;m++) {
-				var curMapping = arrObjs[m];
-				var curUser = curMapping['uid1'];
-				if(mutualFriends[curUser]) {
-				} else {
-					mutualFriends[curUser] = [];
-				}
-				mutualFriends[curUser][mutualFriends[curUser].length] = curMapping['uid2'];
-			}
-			
-			var friendCategories = [], friendData = [];
-			for(var m in mutualFriends) {
-				var allFriends = mutualFriends[m];
-				friendCategories.push(friends[m]);
-				friendData.push(allFriends.length);
-			}
-			highfriendoptions.xAxis.categories = friendCategories;
-			highfriendoptions.series[0].data = friendData;
-			
-			var t = new Highcharts.Chart(highfriendoptions);	
+			if(countItems(mutualFriends)!=0)
+				return;
+			FB.api({
+					method: 'fql.multiquery',
+					queries: {
+						query1: 'SELECT uid2 FROM friend WHERE uid1 = me()',
+						query2: 'SELECT uid1, uid2 FROM friend WHERE uid1 IN (SELECT uid2 FROM #query1) AND uid2 IN (SELECT uid2 FROM #query1)'
+					}
+				},
+				function(resp) {
+					mutualFriends = {};
+					var arrObjs = resp[1]['fql_result_set'];
+					for(var m=0;m<arrObjs.length;m++) {
+						var curMapping = arrObjs[m];
+						var curUser = curMapping['uid1'];
+						if(mutualFriends[curUser]) {
+						} else {
+							mutualFriends[curUser] = [];
+						}
+						mutualFriends[curUser][mutualFriends[curUser].length] = curMapping['uid2'];
+					}
+
+					var friendCategories = [], friendData = [];
+					for(var m in mutualFriends) {
+						var allFriends = mutualFriends[m];
+						friendCategories.push(friends[m]);
+						friendData.push(allFriends.length);
+					}
+					highfriendoptions.xAxis.categories = friendCategories;
+					highfriendoptions.series[0].data = friendData;
+
+					var t = new Highcharts.Chart(highfriendoptions);	
+				});
 		}
 
 		function loadLikesInfo() {
@@ -902,36 +905,36 @@
 		}
 
 		function displayMutualLikesInfo() {
-			var e = document.createElement('script');
-			e.type = 'text/javascript';
-			e.src = "https://api.facebook.com/method/fql.query?query=select%20uid%2C%20page_id%2C%20type%20%20from%20page_fan%20where%20page_id%20in%20(select%20page_id%20from%20page_fan%20where%20uid%20%3D%20me())%20and%20uid%20%20in%20(select%20uid2%20from%20friend%20where%20uid1%3Dme())%20&access_token="+userAccessToken+"&format=json&callback=foundMutualLikes";
-			e.async = true;
-			document.getElementById('mutuallikes').appendChild(e);
-		}
-		
-		function foundMutualLikes(resp) {
-			mutualLikes = {};
-			var arrObjs = resp;
-			for(var m=0;m<arrObjs.length;m++) {
-				var curMapping = arrObjs[m];
-				var curPage = curMapping['page_id'];
-				if(mutualLikes[curPage]) {
-				} else {
-					mutualLikes[curPage] = [];
-				}
-				mutualLikes[curPage][mutualLikes[curPage].length] = curMapping['uid'];
-			}
+			if(countItems(mutualLikes)!=0)
+				return;
+			FB.api({
+					method: 'fql.query',
+					query: 'select uid, page_id, type  from page_fan where page_id in (select page_id from page_fan where uid = me()) and uid  in (select uid2 from friend where uid1=me())'
+				},
+				function(resp) {
+					mutualLikes = {};
+					var arrObjs = resp;
+					for(var m=0;m<arrObjs.length;m++) {
+						var curMapping = arrObjs[m];
+						var curPage = curMapping['page_id'];
+						if(mutualLikes[curPage]) {
+						} else {
+							mutualLikes[curPage] = [];
+						}
+						mutualLikes[curPage][mutualLikes[curPage].length] = curMapping['uid'];
+					}
 
-			var likeCategories = [], likeData = [];
-			for(var m in mutualLikes) {
-				var allFriends = mutualLikes[m];
-				likeCategories.push(likes[m]);
-				likeData.push(allFriends.length);
-			}
-			highlikeoptions.xAxis.categories = likeCategories;
-			highlikeoptions.series[0].data = likeData;
-			
-			var t = new Highcharts.Chart(highlikeoptions);
+					var likeCategories = [], likeData = [];
+					for(var m in mutualLikes) {
+						var allFriends = mutualLikes[m];
+						likeCategories.push(likes[m]);
+						likeData.push(allFriends.length);
+					}
+					highlikeoptions.xAxis.categories = likeCategories;
+					highlikeoptions.series[0].data = likeData;
+
+					var t = new Highcharts.Chart(highlikeoptions);
+			  });
 		}
 
 		String.prototype.getDateFromfacebookFormat = function() {

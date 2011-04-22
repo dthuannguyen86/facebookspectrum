@@ -19,6 +19,10 @@
 		}
 		
 		function captureActivityMetrics() {
+			//Call this only once
+			if(activityoptions.xAxis.categories.length>0)
+				return;
+				
 			log('Start of captureActivityMetrics');
 			var today = new Date();
 			var then = today.setDate(today.getDate()-30);
