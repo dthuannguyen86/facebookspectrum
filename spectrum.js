@@ -517,7 +517,7 @@
 			for(var i=0;i<ids.length;i++) {
 				var marker = new google.maps.Marker({
 					map: map,
-					icon: 'faceicon.ico',
+					icon: 'yellow-markers/marker'+ids.length+'.png',
 					position: latlang,
 					animation: google.maps.Animation.DROP,
 					draggable: false,
