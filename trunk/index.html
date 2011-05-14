@@ -17,6 +17,7 @@
 <script type="text/javascript" src="spectrum.js"></script>
 <script type="text/javascript" src="search.js"></script>
 <script type="text/javascript" src="activity.js"></script>
+<script type="text/javascript" src="export.js"></script>
 -->
 <link rel="shortcut icon" href="/svn/trunk/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="spectrum.css">
@@ -33,7 +34,7 @@
 <script type="text/javascript" src="highchartsoptions.js"></script>
 -->
 
-<script type="text/javascript" src="closure.js?v=050911"></script>
+<script type="text/javascript" src="closure.js?v=051411"></script>
 
 <script language="Javascript">
 
@@ -81,6 +82,8 @@
 			} else if(tab=='activity') {
 				captureActivityMetrics();
 				//displayActivityChart();
+			} else if(tab=='download') {
+				
 			} else if(tab=='more') {
 
 			} else {
@@ -266,6 +269,26 @@
 				<div style="clear:both"></div>
 				<p>Here is a list of all your friends in the order they created their accounts on Facebook. Ever wondered who jumped in on the Facebook wagon first? Here is your answer.. </p><br>
 				<!--friendsBlock-->
+			</div>
+			<div class="block hide" id="downloadBlock">
+				<!--downloadBlock-->
+				<p>
+					<br>
+					If you wanted to save a copy of your Facebook Spectrum information(which include charts and other features on this website), You now have the option to download a PDF version of your Spectrum.
+					<br><br>
+					Please choose the sections of the webpage you want to export and click on the <b>Download</b> button. Please note that the download may take some time depending on the network connection and the number of friends you have.  
+					<br><br>
+					  
+					<label style="white-space: nowrap;"><input type="checkbox" name="exportitems" value="user">Friends List (A list of all my friends)</label><br>
+					<label style="white-space: nowrap;"><input type="checkbox" name="exportitems" value="album">Album Chart (Top 10 friends with most number of albums)</label><br>
+					<label style="white-space: nowrap;"><input type="checkbox" name="exportitems" value="photo">Photo Chart (Top 10 friends with most number of pictures)</label><br>
+					<label style="white-space: nowrap;"><input type="checkbox" name="exportitems" value="gender">Gender Distribution Chart</label><br>
+					<label style="white-space: nowrap;"><input type="checkbox" name="exportitems" value="education">Education Distribution Chart</label><br>
+					<label style="white-space: nowrap;color:#777777"><input type="checkbox" disabled=true name="exportitems" value="messages">All my messages posted on Facebook(Coming soon)</label><br>
+					<label style="white-space: nowrap;color:#777777"><input type="checkbox" disabled=true name="exportitems" value="location">Location Map of all my friends(Coming soon)</label><br>
+					<br>
+					<input type="button" value="Download" id="exportbutton" onclick="exportContentsToPdf();"> &nbsp;<span id="exportmsg" style="display:none"><img src='loading.gif'>&nbsp;Generating a PDF version of your Spectrum. Please wait.. </span>
+				</p><br>
 			</div>
 			<div class="block hide" id="otherBlock">
 				<!--otherBlock-->
@@ -534,6 +557,7 @@
 			FB.api('/me', function(response) {
 				document.getElementById('welcomeMsg').innerHTML += '<br>Welcome <b>'+response.name+'</b>';
 				loggedInUserId = response.id;
+				loggedInUserName = response.name;
 			});
 		}
 
