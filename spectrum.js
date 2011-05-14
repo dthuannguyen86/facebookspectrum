@@ -2,6 +2,7 @@
 
 		var userLoggedIn = false;
 		var loggedInUserId;
+		var loggedInUserName;
 		var userAccessToken;
 		var friends = {};
 		var likes = {};
@@ -869,11 +870,16 @@
 						mutualFriends[curUser][mutualFriends[curUser].length] = curMapping['uid2'];
 					}
 
+					var sortable = [];
+					for(var m in mutualFriends) {						
+						sortable.push([m, mutualFriends[m].length])
+					}
+					sortable.sort(function(a, b) {return b[1] - a[1]});	
+					
 					var friendCategories = [], friendData = [];
-					for(var m in mutualFriends) {
-						var allFriends = mutualFriends[m];
-						friendCategories.push(friends[m]);
-						friendData.push(allFriends.length);
+					for (var i=0;i<sortable.length;i++) {
+						friendCategories.push(friends[sortable[i][0]]);
+						friendData.push(sortable[i][1]);
 					}
 					highfriendoptions.xAxis.categories = friendCategories;
 					highfriendoptions.series[0].data = friendData;
@@ -910,11 +916,16 @@
 						mutualLikes[curPage][mutualLikes[curPage].length] = curMapping['uid'];
 					}
 
+					var sortable = [];
+					for(var m in mutualLikes) {						
+						sortable.push([m, mutualLikes[m].length])
+					}
+					sortable.sort(function(a, b) {return b[1] - a[1]});	
+					
 					var likeCategories = [], likeData = [];
-					for(var m in mutualLikes) {
-						var allFriends = mutualLikes[m];
-						likeCategories.push(likes[m]);
-						likeData.push(allFriends.length);
+					for (var i=0;i<sortable.length;i++) {
+						likeCategories.push(likes[sortable[i][0]]);
+						likeData.push(sortable[i][1]);
 					}
 					highlikeoptions.xAxis.categories = likeCategories;
 					highlikeoptions.series[0].data = likeData;
