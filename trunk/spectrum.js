@@ -34,11 +34,33 @@
 		
 		var progressbarobj = new UProgressBar({"elid":"waiting","min":0,"max":0,"value":0});
 
-		var revealAlbumInfo = function (url) {
+		function captureAlbumInfo() {
+			//Call this only once				
+			log('Start of captureAlbumInfo');
+			
+			var total = countItems(friends);
+			
+			var current = 0;
+			while(current<total) {
+				var friendsList = constructPartialCsv(friends, current, current+100);
+				var func = function(list) {
+					return function() {
+						revealAlbumInfo(list);					
+					};				
+				}(friendsList);
+				
+				window.setTimeout(func, current*100);
+				
+				current += 100;								
+			}
+			
+			AlbumsLoaded = true;
+		}
+		
+		var revealAlbumInfo = function (friendsList) {
 			//document.getElementById('resp').innerHTML += '<br>Entering revealAlbumInfo with url : '+url;
 			
 			log('Started loading album information');
-			var friendsList = constructCsv(friends);
 			url = '/albums?fields=id,name,count,link';
 			FB.api(url, { limit: 50, ids : friendsList }, function(response) {
 				if(response.error) {
@@ -263,15 +285,7 @@
 					if(numPictures>500) {
 						break;
 					}
-					/*
-					if(nextUrl!='') {
-						//nextUrl = unescape(nextUrl);
-						nextUrl = nextUrl.substring(nextUrl.indexOf("/albums"));
-						nextUrl = nextUrl.replace(escape(friendsList), k);
-						//nextUrl = escape(nextUrl);
-						revealAlbumInfo(nextUrl);
-					}
-					*/
+
 				}			
 				//var htmlText = '<b>'+friends[user]+'&apos;s Photos</b><br>';				
 				htmlText = '<br>';
@@ -736,7 +750,7 @@
 								//data[p].name
 							}
 							var tempobjarr = [];
-							if(data[p].comments) {
+							if(data[p].comments && data[p].comments.data) {
 								if(message && message!='') {
 									tempobjarr.push({'postid':postid, 'user': user, 'friendid':friendid, 'title':title, 'message':message, 'createdtime':createdtime});
 								}
