@@ -31,7 +31,7 @@
 			
 			var current = 0;
 			while(current<total) {
-				var friendsList = constructPartialCsv(friends, current, current+20);
+				var friendsList = constructPartialCsv(friends, current, current+10);
 				var func = function(list, time) {
 					return function() {
 						retrieveActivityInfo(list, parseInt(time/1000, 10));					
@@ -40,8 +40,7 @@
 				
 				activityloadcount++;
 				window.setTimeout(func, current*100);
-				
-				current += 20;								
+				current += 10;								
 			}
 
 			refreshActivityChart();
