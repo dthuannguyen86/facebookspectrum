@@ -25,7 +25,7 @@
 				
 			log('Start of captureActivityMetrics');
 			var today = new Date();
-			var then = today.setDate(today.getDate()-30);
+			var then = today.setDate(today.getDate()-7);
 			
 			var total = countItems(friends);
 			
@@ -150,7 +150,7 @@
 		   text: 'Profile Activity Chart'
 		},
 		subtitle: {
-			text: '(Whose profile is the most active in the last 30 days?)'
+			text: '(Whose profile is the most active in the last 7 days?)'
 		},		
 		credits: {
 			enabled : false
