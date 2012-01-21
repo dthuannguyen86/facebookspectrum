@@ -3,9 +3,6 @@
 <title>Facebook Spectrum</title>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
-<script type="text/javascript" src="spectrum.js"></script>
 <script type="text/javascript" src="search.js"></script>
 <link rel="shortcut icon" href="/svn/trunk/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="spectrum.css">
@@ -15,6 +12,36 @@
 <!--
 <script type="text/javascript" src="closure.js?v=110411"></script>
 -->
+<script type="text/javascript">
+	String.prototype.getDateFromfacebookFormat = function() {
+		var d    = this.split(/[-:T+]/); d[1] -= 1; d.pop();
+		var date = new Date(Date.UTC.apply(Date, d));
+		return date;
+	}
+
+	Date.prototype.getFormattedDate = function() {
+		return this.getDate()+' '+MONTHS[this.getMonth()]+' '+this.getFullYear();
+	}
+
+	Date.prototype.getFormattedDateTime = function() {
+		var ap = "PM";
+		var hours = this.getHours();
+		if(hours<12)
+			ap = "AM";
+		if(hours==0)
+			hours = 12;
+		else if(hours>12) {
+			hours = hours-12;
+		}
+		var minutes = ""+this.getMinutes();
+		if(minutes.length==1)
+			minutes = "0"+minutes;
+		var seconds = ""+this.getSeconds();
+		if(seconds.length==1)
+			seconds = "0"+seconds;
+		return this.getDate()+' '+MONTHS[this.getMonth()]+' '+this.getFullYear()+' '+hours+':'+minutes+':'+seconds+' '+ap;
+	}
+</script>
 </head>
 <body>
 
