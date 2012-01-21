@@ -36,126 +36,6 @@
 
 <script type="text/javascript" src="closure.js?v=110411"></script>
 
-<script language="Javascript">
-
-	function switchTab(tab) {
-		log('switchTab called for '+tab);
-		window.location.hash = tab;
-
-		$('.tab').each(function(index) {
-			$(this).removeClass('selected');
-			if($(this).text().toLowerCase()==tab)
-				$(this).addClass('selected');
-		});
-
-		if(userLoggedIn) {
-			$('.block').each(function(index) {
-				$(this).removeClass('show');
-				$(this).addClass('hide');
-				if($(this).attr('id')==tab+'Block') {
-					$(this).removeClass('hide');
-					$(this).addClass('show');
-				}
-			});
-
-
-			if(tab=='home') {
-
-			} else if(tab=='friends') {
-				displayFriendSphere();
-			} else if(tab=='timeline') {
-				displayTimeline();
-			} else if(tab=='birthday') {
-				displayBirthdayInfo();
-			} else if(tab=='location') {
-				displayLocationInfo();
-			} else if(tab=='albums') {
-				displayAlbumInfo();
-			} else if(tab=='mutuals') {
-				displayMutualFriendInfo();
-				displayMutualLikesInfo();
-			} else if(tab=='other') {
-				drawGenderChart();
-				drawEducationChart();
-			} else if(tab=='search') {
-				//anything specific to search?
-			} else if(tab=='activity') {
-				captureActivityMetrics();
-				//displayActivityChart();
-			} else if(tab=='download') {
-
-			} else if(tab=='more') {
-
-			} else {
-				//This might be FAQ page
-			}
-		} else {
-			if(tab=='faq' || tab=='home' || tab=='search') {
-				$('.block').each(function(index) {
-					$(this).removeClass('show');
-					$(this).addClass('hide');
-				});
-
-				$('#'+tab+'Block').removeClass('hide');
-				$('#'+tab+'Block').addClass('show');
-			}
-		}
-
-	}
-
-	var lastHash = '';
-	function pollHash() {
-	    if(lastHash !== location.hash) {
-	        lastHash = location.hash;
-	        // hash has changed, load the content:
-	        //alert(lastHash);
-	        switchTab(lastHash.substring(1));
-	    }
-	}
-	//Poll for back button changes
-	setInterval(pollHash, 100);
-
-
-	function showLoadingMessage(){
-		var maskHeight = $(document).height();
-	    var maskWidth = $(document).width();
-	    $('#mask').css({'top':0, 'left':0, 'width':maskWidth,'height':maskHeight});
-	    var winH = $(window).height();
-        var winW = $(window).width();
-        //Center the popup window to center the window
-        $('#lightbox-panel').css('top',  winH/2-$('#lightbox-panel').height()/2);
-        $('#lightbox-panel').css('left', winW/2-$('#lightbox-panel').width()/2);
-
-		$("#mask, #lightbox-panel").fadeIn(300);
-	}
-
-	function checkContentsLoaded() {
-		if(AlbumsLoaded) {
-			hideLoadingMessage();
-		} else {
-			window.setTimeout("checkContentsLoaded();", 500);
-		}
-	}
-
-	function startLoadingContents() {
-		showLoadingMessage();
-		userGreeting();
-		loadProfileData();
-		checkContentsLoaded();
-	}
-
-	function hideLoadingMessage(){
-	 	$("#mask, #lightbox-panel").fadeOut(300);
-	}
-
-	function displayRefreshText() {
-		$("#mask, #lightbox-panel").append('Oops.. Something went wrong. Please <a href="javascript:window.location.reload()">refresh</a> the page');
-	}
-
-	window.setTimeout('displayRefreshText()', 30000);
-
-</script>
-
 </head>
 <body>
 
@@ -216,46 +96,11 @@
 
 <div id="fb-root"></div>
 	<script type="text/javascript">
-		<!--
 		window.fbAsyncInit = function() {
 			var friendId = 0;
 			FB.init({appId: '132839880113484', status: true, cookie: true,
 					 xfbml: true});
-
-			FB.getLoginStatus(function(response) {
-				//alert('FB.getLoginStatus = '+response.session+' - '+response.status+' - '+response.perms);
-				if (response.authResponse.accessToken) {
-					// logged in and connected user, someone you know
-					//alert('getLoginStatus '+response.session);
-					if(!userLoggedIn) {
-						userLoggedIn = true;
-						startLoadingContents();
-					}
-				} else {
-				    // no user session available, someone you dont know
-				}
-			});
-
-			FB.Event.subscribe('auth.sessionChange', function(response) {
-				if (response.authResponse.accessToken) {
-					// A user has logged in, and a new cookie has been saved
-					//alert('sessionChange '+response.session);
-					if(!userLoggedIn) {
-						userLoggedIn = true;
-						startLoadingContents();
-					}
-				    //window.location.reload();
-				    //reload window upon login and set session
-				} else {
-					// The user has logged out, and the cookie has been cleared
-					//alert('user logged out..');
-				    window.location.reload();
-				    //reload the page and clear the cookie
-				}
-			});
-
 		};
-		-->
 		(function() {
 			var e = document.createElement('script');
 			e.type = 'text/javascript';
