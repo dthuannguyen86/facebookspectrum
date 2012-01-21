@@ -6,62 +6,25 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" type="text/javascript"></script>
 
-<!--
-<script type="text/javascript" src="yearview.js"></script>
-<script type="text/javascript" src="visualization.js"></script>
-<script type="text/javascript" src="timeline.js"></script>
-<script type="text/javascript" src="compact-painter2.js"></script>
-<script type="text/javascript" src="UProgressBar.js"></script>
-<script type="text/javascript" src="wordcumulus.js"></script>
-<script type="text/javascript" src="swfobject.js"></script>
-<script type="text/javascript" src="spectrum.js"></script>
 <script type="text/javascript" src="search.js"></script>
-<script type="text/javascript" src="activity.js"></script>
-<script type="text/javascript" src="export.js"></script>
--->
 <link rel="shortcut icon" href="/svn/trunk/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="spectrum.css">
 <script type="text/javascript">
-	google.load("visualization", "1", {packages:["corechart"]});
-	google.load("visualization", "1", {packages:["table"]});
-	google.load("visualization", "1");
 	google.load("jquery", "1.4.4");
-	google.load("search", "1");
 </script>
-<script type="text/javascript" src="highcharts.js"></script>
-
 <!--
-<script type="text/javascript" src="highchartsoptions.js"></script>
--->
-
 <script type="text/javascript" src="closure.js?v=110411"></script>
-
+-->
 </head>
 <body>
 
-<div id="lightbox-panel">
-	<img src="ajax-loader.gif" align="left" style="margin-top:12px;margin-right:15px;vertical-align:text-top"><h2>Loading, Please wait...</h2>
+<div>
+	<img src="chart.png" style="margin-left:20px" width="50" height="50">&nbsp;<span style="color:#111111;font-size:14px;">Facebook Spectrum</span>
 </div>
-<div id="mask"></div>
-
-<table width="100%" cellpadding="0" cellspacing="0">
-	<tr>
-		<td width="50%">&nbsp;</td>
-			<td width="400" align="right" style="width:400px;padding-right:25px">
-				<fb:login-button autologoutlink="true" scope="friends_photos,friends_location,friends_birthday,read_stream,friends_education_history,user_likes"></fb:login-button>
-			</td>
-		</tr>
-</table>
-<div class="heading">
-	<div style="height:105px;position:relative">
-		<img src="chart.png" style="margin-left:20px" width="50" height="50">&nbsp; <span style="color:#111111;position:absolute;font-size:14px;bottom:15px;left:130px;">Facebook Spectrum</span>
-	</div>
-</div>
-
 
 <table width="100%" height="100%" cellpadding="0" cellspacing="0">
 	<tr>
-		<td width="90%" valign="top" style="padding:10px;border-right:4px solid #FFFFFF">
+		<td width="100%" valign="top" style="padding:10px;border-right:4px solid #FFFFFF">
 			<div class="block show" id="searchBlock">
 				<!--searchBlock-->
 				<div style="margin:20px">
