@@ -69,3 +69,11 @@
 		border:1px solid #C4C4C4;
 		color:#3D3D3D;
 	}
+
+	.fb { 
+		font-family:"lucida grande",tahoma,verdana,arial,sans-serif; 
+		font-size:18px; 
+		background-color:#3B5998; 
+		color:#ffffff; 
+		padding:5px;
+	}
