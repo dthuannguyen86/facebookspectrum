@@ -86,7 +86,7 @@
 		var pattern=new RegExp(searchStr, "gi");			
 		msgHtml = msgHtml.replace(pattern, '<span style="background-color:#FFFBF0;font-weight:bold">'+searchStr+'</span>');
 
-		var html = '<table border="0" cellpadding="0" cellspacing="5"><tr valign="top"><td width="50" align="left" valign="top">'+imgHtml+'</td><td><a href="http://www.facebook.com/'+obj.from.id+'/posts/'+obj.id.substring(obj.id.indexOf('_')+1)+'"><b>'+obj.from.name+'</b></a> &nbsp;:&nbsp;'+msgHtml+((obj.type=="video")?' <span style="color:#4D2600">[Video]</span>':'')+'<br>';
+		var html = '<table border="0" cellpadding="0" cellspacing="5"><tr valign="top"><td width="50" align="left" valign="top">'+imgHtml+'</td><td><a href="https://m.facebook.com/story.php?story_fbid='+obj.from.id+'&id='+obj.id.substring(obj.id.indexOf('_')+1)+'"><b>'+obj.from.name+'</b></a> &nbsp;:&nbsp;'+msgHtml+((obj.type=="video")?' <span style="color:#4D2600">[Video]</span>':'')+'<br>';
 		if(obj.icon) {
 			html += '<img src="'+obj.icon+'">&nbsp;';
 		}
