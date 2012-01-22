@@ -1,0 +1,71 @@
+	/* CSS for overall look and feel of the page */
+	body, table, tr, td {
+		font-family: Arial, Sans-Serif;
+		font-size: small;
+	}
+	a, a:hover, a:visited {
+		color: #0000AA;
+	}
+	
+	/* CSS to display page header and footers */
+	div.heading {
+		border-bottom: 15px solid #e8eef7;
+	}	
+	div.footer {
+		margin-top:15px;
+		padding-top:10px;
+		border-top: 1px dashed #AAAAAA;
+		text-align:center;
+		align:center;		
+		color:#AAAAAA;
+	}	
+
+
+	/* CSS for formatting */
+	div.bold {
+		font-weight:bold;
+	}
+	div.spacer {
+		clear: both;
+	}	
+
+	.border {
+		padding:2px;
+		margin-top:3px;
+		border:1px solid #E7EDFF;		
+		background-color:#FAFAFA;
+	}
+	
+	.border:hover {
+		border:1px solid #99B3FF;		
+	}
+
+	.lightText {
+		color: #999999;
+	}
+	
+	.searchBox {
+		background-image:url('search.png');
+		border:1px solid #000000;
+		background-repeat:no-repeat;
+		padding-left:20px;	
+	}
+
+	.searchButton {
+		background-color:#f5f5f5;
+		border:1px solid #dedede;
+		border-top:1px solid #eee;
+		border-left:1px solid #eee;
+
+		font-size:100%;
+		line-height:130%;
+		font-weight:bold;
+		color:#565656;
+		cursor:pointer;	
+	}
+	
+	.searchButton:hover {
+		background-color:#E8E8E8;
+		border:1px solid #C4C4C4;
+		color:#3D3D3D;
+	}
