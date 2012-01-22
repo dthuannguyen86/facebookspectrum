@@ -32,7 +32,8 @@
 	.border {
 		padding:2px;
 		margin-top:3px;
-		border:1px solid #E7EDFF;		
+		border-top:1px solid #E7EDFF;
+		border-bottom:1px solid #E7EDFF;
 		background-color:#FAFAFA;
 	}
 	
@@ -73,8 +74,8 @@
 	.fb { 
 		font-family:"lucida grande",Tahoma,verdana,arial,sans-serif; 
 		font-weight:bold; 
-		font-size:24px; 
+		font-size:20px; 
 		background-color:#3B5998; 
 		color:#ffffff; 
-		padding:5px;
+		padding:7px;
 	}
