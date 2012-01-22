@@ -2,6 +2,7 @@
 	var polltime = 30;
 	var lastpolltime = 0;
 	var searchtimer;
+	var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	var searchStr;
 	var individualtimers = [];
 
