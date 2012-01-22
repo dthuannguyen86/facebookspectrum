@@ -2,6 +2,7 @@
 	body, table, tr, td {
 		font-family: Arial, Sans-Serif;
 		font-size: small;
+		margin:0px;
 	}
 	a, a:hover, a:visited {
 		color: #0000AA;
