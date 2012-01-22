@@ -79,6 +79,9 @@
 		if(obj.description)
 			msgHtml += '&nbsp;&nbsp;'+obj.description;
 
+		if(msgHtml.length>150)
+			msgHtml = msgHtml.substring(0, 150)+'..';
+
 		var pattern=new RegExp(searchStr, "gi");			
 		msgHtml = msgHtml.replace(pattern, '<span style="background-color:#FFFBF0;font-weight:bold">'+searchStr+'</span>');
 
@@ -86,7 +89,7 @@
 		if(obj.icon) {
 			html += '<img src="'+obj.icon+'">&nbsp;';
 		}
-		html += '<span style="color:#999999">'+locatime+'</span></td></tr></table>';
+		html += '<span style="color:#999999">'+locatime.getFormattedDateTime()+'</span></td></tr></table>';
 		$("<div>").addClass('item').addClass('border').css('opacity', '1').html(html).insertBefore("#searchResults .item:first").hide().fadeIn(1500);
 	}
 
