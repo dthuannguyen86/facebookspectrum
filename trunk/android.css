@@ -14,10 +14,12 @@
 	div.footer {
 		margin-top:15px;
 		padding-top:10px;
-		border-top: 1px dashed #AAAAAA;
+		border-top: 1px solid #3B5998;
 		text-align:center;
 		align:center;		
-		color:#AAAAAA;
+		color:#3B5998;
+		font-weight: bold;
+		font-size:12px;
 	}	
 
 
