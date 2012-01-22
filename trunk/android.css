@@ -34,8 +34,8 @@
 
 	.border {
 		padding:2px;
-		border-top:1px solid #E7EDFF;
-		border-bottom:1px solid #E7EDFF;
+		border-top:1px solid #CCCCCC;
+		border-bottom:1px solid #CCCCCC;
 		background-color:#FAFAFA;
 	}
 
@@ -44,10 +44,7 @@
 	}
 	
 	.searchBox {
-		background-image:url('search.png');
-		border:1px solid #000000;
-		background-repeat:no-repeat;
-		padding-left:20px;	
+		border:1px solid #999999;
 	}
 
 	.searchButton {
