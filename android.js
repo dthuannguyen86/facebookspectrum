@@ -80,13 +80,13 @@
 		if(obj.description)
 			msgHtml += '&nbsp;&nbsp;'+obj.description;
 
-		if(msgHtml.length>150)
-			msgHtml = msgHtml.substring(0, 150)+'..';
+		if(msgHtml.length>100)
+			msgHtml = msgHtml.substring(0, 100)+'..';
 
 		var pattern=new RegExp(searchStr, "gi");			
 		msgHtml = msgHtml.replace(pattern, '<span style="background-color:#FFFBF0;font-weight:bold">'+searchStr+'</span>');
 
-		var html = '<table border="0" cellpadding="5" cellspacing="2"><tr><td width="60" align="center">'+imgHtml+'</td><td><a target="_blank" href="http://www.facebook.com/'+obj.from.id+'/posts/'+obj.id.substring(obj.id.indexOf('_')+1)+'"><b>'+obj.from.name+'</b></a> &nbsp;:&nbsp;'+msgHtml+((obj.type=="video")?' <span style="color:#4D2600">[Video]</span>':'')+'<br><br>';
+		var html = '<table border="0" cellpadding="5" cellspacing="2"><tr valign="top"><td width="60" align="center" valign="top">'+imgHtml+'</td><td><a target="_blank" href="http://www.facebook.com/'+obj.from.id+'/posts/'+obj.id.substring(obj.id.indexOf('_')+1)+'"><b>'+obj.from.name+'</b></a> &nbsp;:&nbsp;'+msgHtml+((obj.type=="video")?' <span style="color:#4D2600">[Video]</span>':'')+'<br><br>';
 		if(obj.icon) {
 			html += '<img src="'+obj.icon+'">&nbsp;';
 		}
