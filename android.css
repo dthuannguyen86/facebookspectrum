@@ -1,6 +1,6 @@
 	/* CSS for overall look and feel of the page */
 	body, table, tr, td {
-		font-family: Arial, Sans-Serif;
+		font-family: "lucida grande",Tahoma,verdana,arial,sans-serif; 
 		font-size: small;
 		margin:0px;
 	}
