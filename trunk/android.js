@@ -48,6 +48,7 @@
 	}
 
 	function displaySearchResults(data) {
+		Android.hideMessage();
 		var count = data.length;
 		var delay = polltime/count;
 		for(var i=0;i<count;i++) {
