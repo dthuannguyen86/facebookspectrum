@@ -19,10 +19,14 @@
 	function searchFacebook() {		
 		searchStr = document.getElementById('searchStr').value;
 		if(searchStr=='') {
-			Android.message('Enter a keyword and watch all the related posts on Facebook in real-time..');
-			return;
+			searchStr = Android.getKeyword();		
+			if(searchStr=='') {
+				Android.message('Enter a keyword and watch all the related posts on Facebook in real-time..');
+				return;
+			}
 		}
 
+		Android.setKeyword(searchStr);
 		Android.message('Loading.. Please wait..');
 		if(searchtimer)
 			window.clearTimeout(searchtimer);
