@@ -24,6 +24,7 @@
 				Android.message('Enter a keyword and watch all the related posts on Facebook in real-time..');
 				return;
 			}
+			document.getElementById('searchStr').value = searchStr;
 		}
 
 		Android.setKeyword(searchStr);
