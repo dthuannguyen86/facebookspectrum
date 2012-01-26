@@ -13,15 +13,17 @@
 				searchFacebook();
 			}
 		});
-		window.setTimeout("searchFacebook()",1000);
+		window.setTimeout("searchFacebook();",1000);
 	});
 
-	function searchFacebook() {
-		Android.message('Loading.. Please wait..');
+	function searchFacebook() {		
 		searchStr = document.getElementById('searchStr').value;
-		if(searchStr=='')
+		if(searchStr=='') {
+			Android.message('Enter a keyword and watch all the related posts on Facebook in real-time..');
 			return;
+		}
 
+		Android.message('Loading.. Please wait..');
 		if(searchtimer)
 			window.clearTimeout(searchtimer);
 		for(var i=0;i<individualtimers.length;i++) {
