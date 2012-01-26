@@ -13,9 +13,11 @@
 				searchFacebook();
 			}
 		});
+		window.setTimeout("searchFacebook()",1000);
 	});
 
 	function searchFacebook() {
+		Android.message('Loading.. Please wait..');
 		searchStr = document.getElementById('searchStr').value;
 		if(searchStr=='')
 			return;
