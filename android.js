@@ -13,6 +13,13 @@
 				searchFacebook();
 			}
 		});
+		$("#searchStr").focus(function(event){
+			Android.showKeyboard();
+		});
+		$("#searchStr").blur(function(event){
+			Android.hideKeyboard();
+		});
+		
 		window.setTimeout("searchFacebook();",1000);
 	});
 
