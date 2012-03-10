@@ -35,7 +35,7 @@
 		var progressbarobj = new UProgressBar({"elid":"waiting","min":0,"max":0,"value":0});
 
 		function captureAlbumInfo() {
-			//Call this only once				
+			//Call this only once on page load			
 			log('Start of captureAlbumInfo');
 			
 			var total = countItems(friends);
