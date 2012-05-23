@@ -927,8 +927,8 @@
 					for(var m=0;m<arrObjs.length;m++) {
 						var curMapping = arrObjs[m];
 						var curUser = curMapping['uid'];
-						console.log(curMapping['name']+" has "+curMapping['friend_count']+" friends");
-						console.log(curMapping['name']+" has "+curMapping['likes_count']+" likes");
+						//console.log(curMapping['name']+" has "+curMapping['friend_count']+" friends");
+						//console.log(curMapping['name']+" has "+curMapping['likes_count']+" likes");
 						totalFriends[curUser] = curMapping['friend_count'];
 						totalLikes[curUser] = curMapping['likes_count'];
 					}
