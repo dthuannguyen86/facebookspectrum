@@ -14,6 +14,8 @@
 		var pictureInfo = {};
 		var genderInfo = {};
 		var mutualFriends = {};
+		var totalFriends = {};
+		var totalLikes = {};
 		var mutualLikes = {};
 		var educationInfo = {};
 		var activityData = {};
@@ -910,6 +912,64 @@
 			});
 		}
 
+		function displayTotals() {
+			if(countItems(totalFriends)!=0 || countItems(totalLikes)!=0)
+				return;
+			FB.api({
+					method: 'fql.multiquery',
+					queries: {
+						query1: 'SELECT uid2 FROM friend WHERE uid1 = me()',
+						query2: 'SELECT uid, name, friend_count, likes_count FROM user WHERE uid IN (SELECT uid2 FROM #query1)'
+					}
+				},
+				function(resp) {
+					var arrObjs = resp[1]['fql_result_set'];
+					for(var m=0;m<arrObjs.length;m++) {
+						var curMapping = arrObjs[m];
+						var curUser = curMapping['uid'];
+						console.log(curMapping['name']+" has "+curMapping['friend_count']+" friends");
+						console.log(curMapping['name']+" has "+curMapping['likes_count']+" likes");
+						totalFriends[curUser] = curMapping['friend_count'];
+						totalLikes[curUser] = curMapping['likes_count'];
+					}
+					
+					var sortable = [];
+					for(var m in totalFriends) {	
+						if(totalFriends[m]!=null)
+							sortable.push([m, parseInt(totalFriends[m])])
+					}
+					sortable.sort(function(a, b) {return b[1] - a[1]});
+					
+					var friendCategories = [], friendData = [];
+					for (var i=0;i<sortable.length;i++) {
+						friendCategories.push(friends[sortable[i][0]]);
+						friendData.push(sortable[i][1]);
+					}
+					hightotalfriendoptions.xAxis.categories = friendCategories;
+					hightotalfriendoptions.series[0].data = friendData;
+
+					var t = new Highcharts.Chart(hightotalfriendoptions);
+					
+					var sortable2 = [];
+					for(var m in totalLikes) {	
+						if(totalLikes[m]!=null)
+							sortable2.push([m, parseInt(totalLikes[m])])
+					}
+					sortable2.sort(function(a, b) {return b[1] - a[1]});
+					
+					var friendCategories2 = [], friendData2 = [];
+					for (var i=0;i<sortable2.length;i++) {
+						friendCategories2.push(friends[sortable2[i][0]]);
+						friendData2.push(sortable2[i][1]);
+					}
+					hightotallikeoptions.xAxis.categories = friendCategories2;
+					hightotallikeoptions.series[0].data = friendData2;
+
+					var t = new Highcharts.Chart(hightotallikeoptions);
+				
+				});
+		}
+		
 		function displayMutualLikesInfo() {
 			if(countItems(mutualLikes)!=0)
 				return;
