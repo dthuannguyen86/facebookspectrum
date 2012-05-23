@@ -71,6 +71,71 @@
 			}]
 		};
 		
+		
+		var hightotalfriendoptions = {
+			chart: {
+				renderTo: 'hightotalfriends'
+			},
+			title: {
+				text: 'Friends of Friends'
+			},  
+			subtitle: {
+				text: '(How many friends do your friends have)'
+			},
+			xAxis: {
+				labels: {
+					enabled: false
+				},			
+				categories: []
+			},
+			yAxis: {
+				title: {
+					text: null
+				}			
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+this.x+'</b><br>'+this.y + ' friends';
+				}
+			},
+			series: [{
+				type: 'column',
+				name: 'Number of friends'
+			}]
+		};
+		
+		var hightotallikeoptions = {
+			chart: {
+				renderTo: 'hightotallikes'
+			},
+			title: {
+				text: 'Friends Likes'
+			},  
+			subtitle: {
+				text: '(How many likes do your friends have)'
+			},
+			xAxis: {
+				labels: {
+					enabled: false
+				},			
+				categories: []
+			},
+			yAxis: {
+				title: {
+					text: null
+				}			
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+this.x+'</b><br>'+this.y + ' likes';
+				}
+			},
+			series: [{
+				type: 'column',
+				name: 'Number of Likes'
+			}]
+		};
+		
 		var highalbumoptions = {
 			chart: {
 				renderTo: 'highalbums',

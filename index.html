@@ -34,7 +34,7 @@
 <script type="text/javascript" src="highchartsoptions.js"></script>
 -->
 
-<script type="text/javascript" src="closure.js?v=110411"></script>
+<script type="text/javascript" src="closure.js?v=052312"></script>
 
 <script language="Javascript">
 
@@ -74,6 +74,8 @@
 			} else if(tab=='mutuals') {
 				displayMutualFriendInfo();
 				displayMutualLikesInfo();
+			} else if(tab=='totals') {
+				displayTotals();
 			} else if(tab=='other') {
 				drawGenderChart();
 				drawEducationChart();
@@ -226,6 +228,7 @@
 				<li class="tab" onclick="switchTab('location');">Location</li>
 				<li class="tab" onclick="switchTab('albums');">Albums</li>
 				<li class="tab" onclick="switchTab('other');">Other</li>
+				<li class="tab" onclick="switchTab('totals');">Totals</li>
 				<li class="tab" onclick="switchTab('mutuals');">Mutuals</li>
 				<li class="tab" onclick="switchTab('activity');">Activity</li>
 				<li class="tab" onclick="switchTab('search');">Search</li>
@@ -364,7 +367,18 @@
 					<div id="highlikes"></div>
 				</div>
 			</div>
-
+			<div class="block hide" id="totalsBlock">
+				<!--totalsBlock-->
+				<div id="totals"></div>
+				<div id="totallikes"></div>
+				<p>The following charts display how your friends rank in terms of their friends and likes..</p><br>
+				<div style="padding:15px;border:1px solid #e8eef7">
+					<div id="hightotalfriends"></div>
+				</div>
+				<div style="margin-top:20px;padding:15px;border:1px solid #e8eef7">
+					<div id="hightotallikes"></div>
+				</div>
+			</div>
 			<div class="block hide" id="timelineBlock">
 				<!--timelineBlock-->
 				<div style="position:relative">
