@@ -625,12 +625,15 @@
 					}
 
 					//Picture Information
-					pictureInfo[response.data[i].id] = response.data[i].picture;
+					//Old : response.data[i].picture;
+					pictureInfo[response.data[i].id] = response.data[i].picture.data.url; 
+					
 
 					//Education Information
 					var edu = 'Unknown';
 					if(response.data[i].education) {
-						edu = (response.data[i].education[0].type==null)?'Unknown':response.data[i].education[0].type;
+						var max = response.data[i].education.length;
+						edu = (response.data[i].education[max-1].type==null)?'Unknown':response.data[i].education[max-1].type;
 					}
 					if(educationInfo[edu])
 						educationInfo[edu][educationInfo[edu].length] = response.data[i].id;
