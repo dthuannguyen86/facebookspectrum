@@ -64,7 +64,7 @@
 			
 			log('Started loading album information');
 			url = '/albums?fields=id,name,count,link';
-			FB.api(url, { limit: 50, ids : friendsList }, function(response) {
+			FB.api(url, { limit: 100, ids : friendsList }, function(response) {
 				if(response.error) {
 					AlbumsLoaded = true;
 					return;
@@ -90,12 +90,14 @@
 					albumInfo[k] = (albumInfo[k]?parseInt(albumInfo[k]):0)+numAlbums;
 					photosInfo[k] = (photosInfo[k]?parseInt(photosInfo[k]):0)+numPictures;
 
+					/*
 					if(!userAccessToken) {
 						var accessToken = nextUrl;
 						accessToken = accessToken.substring(accessToken.indexOf('access_token')+13);
 						accessToken = accessToken.substring(0, (accessToken.indexOf('&')==-1)?accessToken.length:accessToken.indexOf('&'));
 						userAccessToken = accessToken;
 					}
+					*/
 				}
 				//Done loading all the album information
 				AlbumsLoaded = true;
@@ -121,7 +123,7 @@
 			if(!url) {
 				url = '/'+user+'/albums?fields=id,name,count,link,from,description,created_time,location,comments';
 			}
-			FB.api(url, { limit: 50 }, function(response) {
+			FB.api(url, { limit: 100 }, function(response) {
 				var out = [''];
 				if(response.error) {
 					albumsLoading = false;				
@@ -154,14 +156,16 @@
 						if(data[p].comments)
 							comments = data[p].comments.data.length;
 						
+						/*
 						//Get the access token here
 						var accessToken = nextUrl;
 						accessToken = accessToken.substring(accessToken.indexOf('access_token')+13);
 						accessToken = accessToken.substring(0, (accessToken.indexOf('&')==-1)?accessToken.length:accessToken.indexOf('&'));
+						*/
 						
 						out.push('<div class="albumbox"><a href="', link, '" target="new">');
 						out.push('<div class="bold">', title, '</div>');
-						out.push('<div class="albumimage" style="background-image:url(https://graph.facebook.com/', albumId, '/picture?access_token=', accessToken, ');"></div>');
+						out.push('<div class="albumimage" style="background-image:url(https://graph.facebook.com/', albumId, '/picture?access_token=', userAccessToken, ');"></div>');
 						out.push('</a><div class="albumtext"><span>', created_time, '<br>Photos:', count);
 						if(location)
 							out.push('<br>Location: ', location);						
@@ -226,7 +230,7 @@
 		
 		var getPhotosForAlbums = function(albumIds) {
 			url = '/photos?ids='+albumIds+'&fields=id,link,picture,icon,from';
-			FB.api(url, { limit: 50 }, function(response) {
+			FB.api(url, { limit: 100 }, function(response) {
 				var parentObj = document.getElementById('album_detail');
 				var out = [''];
 				if(response.error) {
