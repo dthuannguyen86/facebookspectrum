@@ -538,7 +538,7 @@
 
 			FB.getLoginStatus(function(response) {
 				//alert('FB.getLoginStatus = '+response.session+' - '+response.status+' - '+response.perms);
-				if (response.authResponse.accessToken) {
+				if (response.authResponse && response.authResponse.accessToken) {
 					// logged in and connected user, someone you know
 					//alert('getLoginStatus '+response.session);
 					userAccessToken = response.authResponse.accessToken;
@@ -551,10 +551,11 @@
 				}
 			});
 
-			FB.Event.subscribe('auth.sessionChange', function(response) {
-				if (response.authResponse.accessToken) {
+			FB.Event.subscribe('auth.authResponseChange', function(response) {
+				if (response.authResponse && response.authResponse.accessToken) {
 					// A user has logged in, and a new cookie has been saved
 					//alert('sessionChange '+response.session);
+					userAccessToken = response.authResponse.accessToken;
 					if(!userLoggedIn) {
 						userLoggedIn = true;
 						startLoadingContents();
