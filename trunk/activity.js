@@ -1,4 +1,6 @@
-		
+
+		var activitychart = null;
+
 		function constructPartialCsv(obj, start, end) {
 			var c = '';
 			var count = 0;
@@ -19,10 +21,13 @@
 		}
 		
 		function captureActivityMetrics() {
+			
 			//Call this only once
 			if(activityoptions.xAxis.categories.length>0)
 				return;
-				
+			
+			activitychart = new Highcharts.Chart(activityoptions);
+			
 			log('Start of captureActivityMetrics');
 			var today = new Date();
 			var then = today.setDate(today.getDate()-7);
@@ -60,6 +65,9 @@
 
 
 		function displayActivityChart() {
+			
+			/*
+			//This will re-render the chart everytime - looks bad - Using redraw instead(see below the commented block)
 			activityoptions.xAxis.categories = [];
 			activityoptions.series[0].data = [];
 			activityoptions.series[1].data = [];
@@ -79,7 +87,36 @@
 				activityoptions.series[4].data.push(activityData[obj]['O']);
 			}
 			
-			var t = new Highcharts.Chart(activityoptions);	
+			var t = new Highcharts.Chart(activityoptions);
+			*/	
+			
+			var categories = activityoptions.xAxis.categories || [];
+			var series0data = activityoptions.series[0].data || [];
+			var series1data = activityoptions.series[1].data || [];
+			var series2data = activityoptions.series[2].data || [];
+			var series3data = activityoptions.series[3].data || [];
+			var series4data = activityoptions.series[4].data || [];
+			
+			for(var obj in activityData) {
+				if(!activityData.hasOwnProperty(obj))
+					continue;
+					
+				categories.push(friends[obj]);
+				series0data.push(activityData[obj]['V']);
+				series1data.push(activityData[obj]['S']);
+				series2data.push(activityData[obj]['L']);
+				series3data.push(activityData[obj]['P']);
+				series4data.push(activityData[obj]['O']);
+			}
+			
+			activitychart.xAxis[0].setCategories(categories, false);
+			activitychart.series[0].setData(series0data, false);
+			activitychart.series[1].setData(series1data, false);
+			activitychart.series[2].setData(series2data, false);
+			activitychart.series[3].setData(series3data, false);
+			activitychart.series[4].setData(series4data, false);
+			activitychart.redraw();
+			
 		}
 
 		var retrieveActivityInfo = function (user, sinceTime) {
