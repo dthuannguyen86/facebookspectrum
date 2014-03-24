@@ -318,6 +318,7 @@
 		}
 
 		var displayLocationInfo = function() {
+			drawLocationTable();
 			var locationcount = countItems(locationInfo);
 			var geocodecount = countItems(geocodeInfo);
 			//log('countItems(geocodeInfo):'+countItems(geocodeInfo));
@@ -331,12 +332,11 @@
 			}
 			
 			dropMarkers();
-			drawLocationTable();
 			log('Drawing map complete');
 		}
 
 		var displayBirthdayInfo = function() {		
-			displayCurrentYear('2011');
+			displayCurrentYear();
 			displayUpcomingBirthdays();
 			drawBirthdayTable();
 		}
