@@ -100,7 +100,10 @@
 			for(var obj in activityData) {
 				if(!activityData.hasOwnProperty(obj))
 					continue;
-					
+				
+				if(categories.indexOf(friends[obj])!=-1)
+					continue;
+				
 				categories.push(friends[obj]);
 				series0data.push(activityData[obj]['V']);
 				series1data.push(activityData[obj]['S']);
