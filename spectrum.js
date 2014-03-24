@@ -485,14 +485,15 @@
 			//google.search.Search.getBranding('branding');
 		}
 				
+		/*
 		function geocodeAllAddresses() {
 			convertLocationToArray();
 			localSearchNextAddress();
 		}
+		*/
 		
 
 		//This has to be done in the background to avoid time lag
-		/*
 		function geocodeAllAddresses() {
 			var i=0;
 			for (var key in locationInfo) {
@@ -502,11 +503,11 @@
 				(function(tempAddr) {
 					setTimeout(function() {
 						geocodeAddress(tempAddr);
-					}, i++ * 700);
+					}, i++ * 800);
 				})(key);
 			}
 		}
-		*/
+		
 		
 		function geocodeAddress(address) {
 			geocoder.geocode( { 'address': address}, function(results, status) {
@@ -515,7 +516,7 @@
 					log('Geocoded '+address+' to '+results[0].geometry.location.toString());
 				} else {
 					geocodeInfo[address] = null;
-					//alert("Could not geocode "+address+" - Reason: " + status);
+					log("Could not geocode "+address+" - Reason: " + status);
 				}
 			});
 		}
@@ -679,6 +680,7 @@
 		function log(s) {
 			if(DEBUG) {
 				document.getElementById('debugLog').innerHTML = (new Date())+' => '+s+'<br>'+document.getElementById('debugLog').innerHTML;
+				window.console && console.log((new Date())+' => '+s);
 				//document.getElementById('debugLog').scrollTop=9999;
 			}
 		}
