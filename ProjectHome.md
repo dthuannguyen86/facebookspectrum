@@ -1,0 +1,1 @@
+Facebook Spectrum allows the users of Facebook to get a birds eye view of their friends on Facebook. It acts as an Insight application for your Facebook account. Facebook Spectrum is built as a mashup of several open source APIs available from Facebook, Google and a few others..
